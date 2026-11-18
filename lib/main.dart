@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:ui' as ui;
-import 'package:flutter/foundation.dart';
 import "package:service/screen/Auth/verification/otp_mobile.dart";
 import "package:service/screen/ComingSoon.dart";
 import "package:service/screen/Dashboard1/app_language.dart";
@@ -48,91 +47,7 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       builder: (context, child) {
-        if (!kIsWeb) return child ?? const SizedBox.shrink();
-
-        final mediaQuery = MediaQuery.of(context);
-        final isDesktop = mediaQuery.size.width > 500;
-        if (!isDesktop) return child ?? const SizedBox.shrink();
-
-        final availableHeight = mediaQuery.size.height * 0.94;
-        final targetHeight = availableHeight > 880.0
-            ? 880.0
-            : (availableHeight < 620.0 ? 620.0 : availableHeight);
-        final targetWidth = (targetHeight * 0.48).clamp(380.0, 420.0);
-
-        final boundedChild = MediaQuery(
-          data: mediaQuery.copyWith(
-            size: Size(targetWidth, targetHeight),
-          ),
-          child: child ?? const SizedBox.shrink(),
-        );
-
-        return Scaffold(
-          backgroundColor: const Color(0xFF0F172A),
-          body: SafeArea(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1E293B),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: const Color(0xFF00A896).withOpacity(0.4)),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 8,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFF10B981),
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text(
-                          'RapsApp — Live Mobile Preview',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 0.3,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Container(
-                      width: targetWidth,
-                      height: targetHeight,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(36),
-                        border: Border.all(color: const Color(0xFF334155), width: 8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.55),
-                            blurRadius: 40,
-                            offset: const Offset(0, 20),
-                          ),
-                        ],
-                      ),
-                      child: boundedChild,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-              ],
-            ),
-          ),
-        );
+        return child ?? const SizedBox.shrink();
       },
       routes: {
         '/': (context) => SplashScreenOne(onboarding: widget.hasSeenOnboarding),
