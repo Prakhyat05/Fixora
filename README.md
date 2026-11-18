@@ -18,23 +18,38 @@
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License" />
 </p>
 
+<p align="center">
+  <a href="https://prakhyat05.github.io/rapsapp/">
+    <img src="https://img.shields.io/badge/🌐%20Live%20Demo-Try%20Interactive%20Mobile%20UI-00A896?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live Demo" height="38" />
+  </a>
+</p>
+
+> ### 📱 **Live Interactive Mobile Demo**
+> Recruiters and reviewers can test the fully interactive application directly in their web browser:
+>
+> 👉 **[Launch RapsApp Mobile Preview](https://prakhyat05.github.io/rapsapp/)**
+>
+> - **Authentic Mobile Viewport**: Automatically rendered in a centered mobile device shell on desktop screens, or full-screen on mobile devices.
+> - **Recruiter One-Click Bypass**: Tap **"Quick Demo Login (For Recruiters)"** on the sign-in screen to jump directly into the active dashboard with simulated real-time data.
+
 ---
 
 ## 📌 Table of Contents
-1. [Executive Summary](#-executive-summary)
-2. [Releases & Downloads (ARM & Universal)](#-releases--downloads-arm--universal)
-3. [Key Architectural Highlights](#-key-architectural-highlights)
-4. [System Architecture Diagram](#-system-architecture-diagram)
-5. [User Flows & Diagrams](#-user-flows--diagrams)
+1. [Live Interactive Mobile Demo](#-live-interactive-mobile-demo)
+2. [Executive Summary](#-executive-summary)
+3. [Releases & Downloads (ARM & Universal)](#-releases--downloads-arm--universal)
+4. [Key Architectural Highlights](#-key-architectural-highlights)
+5. [System Architecture Diagram](#-system-architecture-diagram)
+6. [User Flows & Diagrams](#-user-flows--diagrams)
    - [1. Provider Onboarding & 5-Step KYC](#1-service-provider-onboarding--5-step-kyc)
    - [2. Service Job Lifecycle & Dual-OTP Handshake](#2-service-job-lifecycle--dual-otp-handshake)
    - [3. Payment & Activation Flow](#3-payment--account-activation-flow)
-6. [Core Features](#-core-features)
-7. [Tech Stack & Dependencies](#-tech-stack--dependencies)
-8. [Directory Structure](#-directory-structure)
-9. [Getting Started & Quick Demo](#-getting-started--quick-demo)
-10. [Testing & Quality Assurance](#-testing--quality-assurance)
-11. [Security & Best Practices](#-security--best-practices)
+7. [Core Features](#-core-features)
+8. [Tech Stack & Dependencies](#-tech-stack--dependencies)
+9. [Directory Structure](#-directory-structure)
+10. [Getting Started & Quick Demo](#-getting-started--quick-demo)
+11. [Testing & Quality Assurance](#-testing--quality-assurance)
+12. [Security & Best Practices](#-security--best-practices)
 
 ---
 
