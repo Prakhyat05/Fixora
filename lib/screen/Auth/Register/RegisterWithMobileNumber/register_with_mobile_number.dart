@@ -1,10 +1,5 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:service/export.dart';
-import 'package:service/screen/Auth/verification/otp_mobile.dart';
-
-import '../../../../service/google_auth.dart';
+import 'package:service/service/authentication.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -13,6 +8,7 @@ class RegisterWithMobileNumber extends StatefulWidget {
 
   static String verify = "";
   static String nameSend = "";
+  static String phoneSend = "";
 
   @override
   State<RegisterWithMobileNumber> createState() =>
@@ -22,8 +18,8 @@ class RegisterWithMobileNumber extends StatefulWidget {
 class _RegisterWithMobileNumberState extends State<RegisterWithMobileNumber> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  //final TextEditingController passwordController = TextEditingController();
   final TextEditingController countrycode = TextEditingController();
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -31,88 +27,96 @@ class _RegisterWithMobileNumberState extends State<RegisterWithMobileNumber> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    nameController.dispose();
+    phoneController.dispose();
+    countrycode.dispose();
+    super.dispose();
+  }
+
+  void sendMobileOTP() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final fullPhone = "${countrycode.text.trim()}${phoneController.text.trim()}";
+    RegisterWithMobileNumber.phoneSend = fullPhone;
+    RegisterWithMobileNumber.nameSend = nameController.text.trim();
+
+    final sent = await AuthServices().requestMobileOTP(fullPhone);
+
+    if (!mounted) return;
+    setState(() {
+      isLoading = false;
+    });
+
+    if (sent) {
+      RegisterWithMobileNumber.verify = "verification-session-id";
+      Navigator.pushNamed(context, 'otpphone');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Failed to send OTP. Please try again.")),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     RegisterWithMobileNumber.nameSend = nameController.text.toString();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        margin: EdgeInsets.only(top: 75, left: 25, right: 25, bottom: 25),
+        margin: const EdgeInsets.only(top: 75, left: 25, right: 25, bottom: 25),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Text
               MyHeadingTextWidget(text: createAnAccToGetStarted),
-
-              // space
-              SizedBox(
-                height: 30,
-              ),
-
+              const SizedBox(height: 30),
               Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     // Name
                     MyTextField(
-                        controller: nameController,
-                        keyboardtype: TextInputType.name,
-                        hintText: enterYourName),
-
-                    SizedBox(
-                      height: 15,
+                      controller: nameController,
+                      keyboardtype: TextInputType.name,
+                      hintText: enterYourName,
+                      validator: (value) => (value == null || value.isEmpty)
+                          ? 'Please enter your name'
+                          : null,
                     ),
+
+                    const SizedBox(height: 15),
 
                     // Phone
                     MyTextField(
-                        controller: phoneController,
-                        keyboardtype: TextInputType.number,
-                        validator: (phone) => phone!.length == 10
-                            ? null
-                            : 'Phone Number should be equal to 10 characters',
-                        hintText: enterYouPhoneNumber),
-
-                    SizedBox(
-                      height: 15,
+                      controller: phoneController,
+                      keyboardtype: TextInputType.number,
+                      validator: (phone) => (phone == null || phone.length != 10)
+                          ? 'Phone Number should be equal to 10 digits'
+                          : null,
+                      hintText: enterYouPhoneNumber,
                     ),
 
-                    // Password
-                    //MyPasswordTextField(
-                    //controller: passwordController,
-                    //obsecureText: true,
-                    //hintText: enterYourPassword),
-
-                    //SizedBox(
-                    //height: 25,
-                    //),
+                    const SizedBox(height: 25),
 
                     // Register Button
-                    MyTextButton(
-                        text: signUp,
-                        onPressed: () async {
-                          _formKey.currentState!.validate();
-                          await FirebaseAuth.instance.verifyPhoneNumber(
-                            phoneNumber: countrycode.text.toString() +
-                                phoneController.text.toString(),
-                            verificationCompleted:
-                                (PhoneAuthCredential credential) {},
-                            verificationFailed: (FirebaseAuthException e) {},
-                            codeSent:
-                                (String verificationid, int? resendToken) {
-                              RegisterWithMobileNumber.verify = verificationid;
-                              Navigator.pushNamed(context, 'otpphone');
+                    isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : MyTextButton(
+                            text: signUp,
+                            onPressed: () {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                sendMobileOTP();
+                              }
                             },
-                            codeAutoRetrievalTimeout:
-                                (String verificationid) {},
-                          );
-                        }),
+                          ),
 
-                    SizedBox(
-                      height: 40,
-                    ),
+                    const SizedBox(height: 40),
 
-                    //
                     Row(
                       children: [
                         Expanded(
@@ -121,22 +125,18 @@ class _RegisterWithMobileNumberState extends State<RegisterWithMobileNumber> {
                             color: Colors.black38,
                           ),
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
+                        const SizedBox(width: 5),
                         Text(
-                          "Or Signup with",
+                          orSignUpWith,
                           style: GoogleFonts.montserrat(
                             fontWeight: FontWeight.w400,
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               color: Colors.black54,
-                              fontSize: 20,
+                              fontSize: 18,
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
+                        const SizedBox(width: 5),
                         Expanded(
                           child: Container(
                             height: 1,
@@ -146,41 +146,45 @@ class _RegisterWithMobileNumberState extends State<RegisterWithMobileNumber> {
                       ],
                     ),
 
-                    SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
 
-                    // Another
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         MyInkWellIcon(
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'regemail');
-                            },
-                            location: 'assets/logo/extra/Email.png'),
+                          location: emailLogo,
+                          onPressed: () {
+                            Navigator.pushNamed(context, 'regemail');
+                          },
+                        ),
                         MyInkWellIcon(
-                            onPressed: () async {
-                              await FirebaseServices().signInWithGoogle();
-                              Navigator.pushNamed(context, 'emptystate');
-                            },
-                            location: 'assets/logo/extra/google_logo.png'),
+                          location: googleLogo,
+                          onPressed: () async {
+                            final nav = Navigator.of(context);
+                            final success = await AuthServices().signInGoogle();
+                            if (success) {
+                              nav.pushNamed('profile_step1');
+                            }
+                          },
+                        ),
                       ],
                     ),
 
                     SizedBox(
-                      height:
-                          MediaQuery.of(context).size.width < 400 ? 25 : 266,
+                      height: MediaQuery.of(context).size.width < 400 ? 25 : 80,
                     ),
 
                     Column(
                       children: [
-                        MyTextWidget(text: 'Already have an account?'),
+                        MyTextWidget(
+                          text: alreadyHaveAnAccount,
+                        ),
                         MyInkWellButton(
-                            text: 'Login Now',
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'loginemail');
-                            }),
+                          text: "Login Now",
+                          onPressed: () {
+                            Navigator.pushNamed(context, 'loginemail');
+                          },
+                        ),
                       ],
                     )
                   ],

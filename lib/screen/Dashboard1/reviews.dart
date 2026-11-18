@@ -266,7 +266,7 @@ class ReviewBar extends StatelessWidget {
   final int rating;
   final int count;
 
-  ReviewBar({required this.rating, required this.count});
+  const ReviewBar({super.key, required this.rating, required this.count});
 
   @override
   Widget build(BuildContext context) {

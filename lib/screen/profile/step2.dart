@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:service/common/AlertDialogBox/service_provider.dart';
 import 'package:service/export.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 
@@ -8,8 +7,8 @@ class Step2 extends StatefulWidget {
   const Step2({super.key});
   static String sproviderPrimary = "";
   static String sprovidersecondary = "";
-  static var ratePrimary;
-  static var rateSecondary;
+  static int? ratePrimary;
+  static int? rateSecondary;
 
   @override
   State<Step2> createState() => _Step2State();
@@ -35,144 +34,109 @@ class _Step2State extends State<Step2> {
   void initState() {
     super.initState();
 
-    this.category.add({"id": 1, "name": "Personal Services"});
-    this.category.add({"id": 2, "name": "Home Maintenance"});
-    this.category.add({"id": 3, "name": "Education"});
-    this.category.add({"id": 4, "name": "Household and Other Services"});
-    this.category.add({"id": 5, "name": "Health and Wellness"});
-    this.category.add({"id": 6, "name": "Professional Services"});
-    this.category.add({"id": 7, "name": "Event and Entertainment"});
-    this.category.add({"id": 8, "name": "Food and Beverage"});
-    this.category.add({"id": 9, "name": "Transportation"});
-    this.category.add({"id": 10, "name": "Travel and Hospitality"});
-    this.category.add({"id": 11, "name": "Technology and Digital Services"});
+    category.add({"id": 1, "name": "Personal Services"});
+    category.add({"id": 2, "name": "Home Maintenance"});
+    category.add({"id": 3, "name": "Education"});
+    category.add({"id": 4, "name": "Household and Other Services"});
+    category.add({"id": 5, "name": "Health and Wellness"});
+    category.add({"id": 6, "name": "Professional Services"});
+    category.add({"id": 7, "name": "Event and Entertainment"});
+    category.add({"id": 8, "name": "Food and Beverage"});
+    category.add({"id": 9, "name": "Transportation"});
+    category.add({"id": 10, "name": "Travel and Hospitality"});
+    category.add({"id": 11, "name": "Technology and Digital Services"});
 
-    this.subcategoryMaster.add({"ID": 1, "Name": "Beauticians", "ParentId": 1});
-    this
-        .subcategoryMaster
+    subcategoryMaster.add({"ID": 1, "Name": "Beauticians", "ParentId": 1});
+    subcategoryMaster
         .add({"ID": 2, "Name": "Fashion Advice", "ParentId": 1});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 3, "Name": "Tailoring Services", "ParentId": 1});
-    this.subcategoryMaster.add({"ID": 1, "Name": "Plumber", "ParentId": 2});
-    this.subcategoryMaster.add({"ID": 2, "Name": "Electrician", "ParentId": 2});
-    this.subcategoryMaster.add({"ID": 3, "Name": "Masons", "ParentId": 2});
-    this.subcategoryMaster.add({"ID": 4, "Name": "Carpenters", "ParentId": 2});
-    this
-        .subcategoryMaster
+    subcategoryMaster.add({"ID": 1, "Name": "Plumber", "ParentId": 2});
+    subcategoryMaster.add({"ID": 2, "Name": "Electrician", "ParentId": 2});
+    subcategoryMaster.add({"ID": 3, "Name": "Masons", "ParentId": 2});
+    subcategoryMaster.add({"ID": 4, "Name": "Carpenters", "ParentId": 2});
+    subcategoryMaster
         .add({"ID": 5, "Name": "Interior Decorator", "ParentId": 2});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 6, "Name": "Exterior Decorator", "ParentId": 2});
-    this.subcategoryMaster.add({"ID": 7, "Name": "Architect", "ParentId": 2});
-    this.subcategoryMaster.add({"ID": 8, "Name": "Glass Work", "ParentId": 2});
-    this
-        .subcategoryMaster
+    subcategoryMaster.add({"ID": 7, "Name": "Architect", "ParentId": 2});
+    subcategoryMaster.add({"ID": 8, "Name": "Glass Work", "ParentId": 2});
+    subcategoryMaster
         .add({"ID": 9, "Name": "Housekeeping", "ParentId": 2});
-    this.subcategoryMaster.add({"ID": 10, "Name": "Maids", "ParentId": 2});
-    this
-        .subcategoryMaster
+    subcategoryMaster.add({"ID": 10, "Name": "Maids", "ParentId": 2});
+    subcategoryMaster
         .add({"ID": 1, "Name": "Home Tutions", "ParentId": 3});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 2, "Name": "Tution Centre", "ParentId": 3});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 3, "Name": "Online Tution", "ParentId": 3});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 4, "Name": "Coaching Service/Sports", "ParentId": 3});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 5, "Name": "Expert Talks/Demo (Offline)", "ParentId": 3});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 6, "Name": "Online Guest Lectures", "ParentId": 3});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 7, "Name": "Project Works", "ParentId": 3});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 8, "Name": "Speaking Courses", "ParentId": 3});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 1, "Name": "Home/room for Rent", "ParentId": 4});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 2, "Name": "Baby Sitting", "ParentId": 4});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 3, "Name": "Driving Schools", "ParentId": 4});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 4, "Name": "Car Repairing", "ParentId": 4});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 5, "Name": "Summer Camps for kids", "ParentId": 4});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 6, "Name": "House Building Materials", "ParentId": 4});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 1, "Name": "Online medical Consultation", "ParentId": 5});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 2, "Name": "Vetrinary Services", "ParentId": 5});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 3, "Name": "Yoga Service offline", "ParentId": 5});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 4, "Name": "Yoga service Online", "ParentId": 5});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 5, "Name": "Fitness programe online", "ParentId": 5});
-    this.subcategoryMaster.add({"ID": 1, "Name": "CA Service", "ParentId": 6});
-    this
-        .subcategoryMaster
+    subcategoryMaster.add({"ID": 1, "Name": "CA Service", "ParentId": 6});
+    subcategoryMaster
         .add({"ID": 2, "Name": "Home Shift Service", "ParentId": 6});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 3, "Name": "Carrier Councelling", "ParentId": 6});
-    this.subcategoryMaster.add({"ID": 4, "Name": "Man Power", "ParentId": 6});
-    this
-        .subcategoryMaster
+    subcategoryMaster.add({"ID": 4, "Name": "Man Power", "ParentId": 6});
+    subcategoryMaster
         .add({"ID": 1, "Name": "Event Organizing", "ParentId": 7});
-    this.subcategoryMaster.add({"ID": 2, "Name": "DJ Services", "ParentId": 7});
-    this
-        .subcategoryMaster
+    subcategoryMaster.add({"ID": 2, "Name": "DJ Services", "ParentId": 7});
+    subcategoryMaster
         .add({"ID": 3, "Name": "Tent Service", "ParentId": 7});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 4, "Name": "Dance Classes", "ParentId": 7});
-    this.subcategoryMaster.add({"ID": 5, "Name": "Photography", "ParentId": 7});
-    this
-        .subcategoryMaster
+    subcategoryMaster.add({"ID": 5, "Name": "Photography", "ParentId": 7});
+    subcategoryMaster
         .add({"ID": 1, "Name": "Cooking Service", "ParentId": 8});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 2, "Name": "Water Tankers", "ParentId": 8});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 3, "Name": "Water Tank Cleaning", "ParentId": 8});
-    this.subcategoryMaster.add({"ID": 1, "Name": "Taxi", "ParentId": 9});
-    this.subcategoryMaster.add({"ID": 2, "Name": "Bus Booking", "ParentId": 9});
-    this
-        .subcategoryMaster
+    subcategoryMaster.add({"ID": 1, "Name": "Taxi", "ParentId": 9});
+    subcategoryMaster.add({"ID": 2, "Name": "Bus Booking", "ParentId": 9});
+    subcategoryMaster
         .add({"ID": 1, "Name": "Tour and Travel Packagee", "ParentId": 10});
-    this.subcategoryMaster.add({"ID": 2, "Name": "Hotel", "ParentId": 10});
-    this
-        .subcategoryMaster
+    subcategoryMaster.add({"ID": 2, "Name": "Hotel", "ParentId": 10});
+    subcategoryMaster
         .add({"ID": 1, "Name": "Web Developing", "ParentId": 11});
-    this
-        .subcategoryMaster
+    subcategoryMaster
         .add({"ID": 2, "Name": "Digital Marketing", "ParentId": 11});
   }
 
   @override
   Widget build(BuildContext context) {
-    Step2.ratePrimary = ratePerHourPrimary.text;
-    Step2.rateSecondary = ratePerHourSecondary.text;
+    Step2.ratePrimary = int.tryParse(ratePerHourPrimary.text);
+    Step2.rateSecondary = int.tryParse(ratePerHourSecondary.text);
     Step2.sproviderPrimary = listServiceProviderPrimary.text.toString();
     Step2.sprovidersecondary = listServiceProviderSecondary.text.toString();
 
@@ -250,7 +214,6 @@ class _Step2State extends State<Step2> {
                                 textColor: Colors.white,
                                 category, (onChangedVal) {
                               categoryId = onChangedVal;
-                              print('Selected Category: $onChangedVal');
 
                               subcategory = subcategoryMaster
                                   .where(
@@ -299,7 +262,6 @@ class _Step2State extends State<Step2> {
                                 subcategoryId,
                                 subcategory, (onChangedVal) {
                               subcategoryId = onChangedVal;
-                              print('Selected Sub Category: $onChangedVal');
                             }, (onValidate) {
                               return null;
                             },
@@ -374,7 +336,6 @@ class _Step2State extends State<Step2> {
                                 textColor: Colors.white,
                                 category, (onChangedVal) {
                               categoryId = onChangedVal;
-                              print('Selected Category: $onChangedVal');
 
                               subcategory = subcategoryMaster
                                   .where(
@@ -423,7 +384,6 @@ class _Step2State extends State<Step2> {
                                 subcategoryId,
                                 subcategory, (onChangedVal) {
                               subcategoryId = onChangedVal;
-                              print('Selected Sub Category: $onChangedVal');
                             }, (onValidate) {
                               return null;
                             },

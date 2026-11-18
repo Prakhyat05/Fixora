@@ -355,18 +355,18 @@ class _ClientOnGoingJobState extends State<ClientOnGoingJob>
                         MyTextButton(
                           text: 'Mark as complete',
                           onPressed: () async {
-                            await AuthServices().requestOTP(AuthServices().getUser()["email"]);
-                            if (mounted) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ServiceOtpVerification(
-                                            descText:
-                                                'Enter the verification code to complete service request.',
-                                            whereToGo: 'pay',
-                                          )));
-                            }
+                            final nav = Navigator.of(context);
+                            await AuthServices().requestOTP();
+                            nav.push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const ServiceOtpVerification(
+                                      descText:
+                                          'Enter the verification code to complete service request.',
+                                      whereToGo: 'pay',
+                                    ),
+                              ),
+                            );
                           },
                         ),
                       ],
@@ -426,11 +426,5 @@ class _ClientOnGoingJobState extends State<ClientOnGoingJob>
         return alert;
       },
     );
-
-    @override
-    void dispose() {
-      super.dispose();
-      razorpay.clear();
-    }
   }
 }

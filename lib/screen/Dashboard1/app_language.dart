@@ -187,7 +187,7 @@ class CustomRadioButton extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  const CustomRadioButton({required this.isSelected, required this.onTap});
+  const CustomRadioButton({super.key, required this.isSelected, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

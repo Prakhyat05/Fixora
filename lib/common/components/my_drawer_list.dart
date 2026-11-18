@@ -52,13 +52,17 @@ class _MyDrawerListState extends State<MyDrawerList> {
             ),
             MyDrawerDivider(),
             MyDrawerListTile(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, 'comingsoon');
+              },
               myicons: Icons.military_tech_outlined,
               title: 'Rewards',
             ),
             MyDrawerDivider(),
             MyDrawerListTile(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, 'comingsoon');
+              },
               myicons: Icons.help_outline,
               title: 'FAQ’S',
             ),

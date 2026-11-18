@@ -183,7 +183,9 @@ class _DashboardUserProfileState extends State<DashboardUserProfile> {
                                   ? 18
                                   : 20,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, 'appLanguage');
+                            },
                           ),
                           Divider(),
                           ListTile(
@@ -201,7 +203,9 @@ class _DashboardUserProfileState extends State<DashboardUserProfile> {
                                   ? 18
                                   : 20,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, 'forgetpassword');
+                            },
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height < 750

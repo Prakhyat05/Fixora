@@ -6,8 +6,10 @@ import 'dart:async';
 import 'package:service/common/components/my_text_widget.dart';
 
 class RotatingTextWidget extends StatefulWidget {
+  const RotatingTextWidget({super.key});
+
   @override
-  _RotatingTextWidgetState createState() => _RotatingTextWidgetState();
+  State<RotatingTextWidget> createState() => _RotatingTextWidgetState();
 }
 
 class _RotatingTextWidgetState extends State<RotatingTextWidget>

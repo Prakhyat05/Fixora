@@ -24,11 +24,11 @@ class MyTextButton extends StatelessWidget {
       child: TextButton(
         style: ButtonStyle(
           minimumSize:
-              MaterialStateProperty.all<Size>(Size(double.infinity, 65)),
-          backgroundColor: MaterialStateProperty.all<Color>(
+              WidgetStateProperty.all<Size>(Size(double.infinity, 65)),
+          backgroundColor: WidgetStateProperty.all<Color>(
             buttonColor ?? Color(0x12121212).withOpacity(1),
           ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             ),

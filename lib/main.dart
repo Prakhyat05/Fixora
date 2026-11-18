@@ -4,7 +4,6 @@ import "package:service/screen/Auth/verification/otp_mobile.dart";
 import "package:service/screen/ComingSoon.dart";
 import "package:service/screen/Dashboard1/app_language.dart";
 import "package:service/screen/Dashboard1/empty_state.dart";
-import "package:service/screen/snackBar.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
 import "export.dart";
@@ -14,28 +13,32 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   final onboarding = prefs.getBool('onboarding') ?? false;
 
-  runApp(const MyApp());
+  runApp(MyApp(hasSeenOnboarding: onboarding));
 }
 
-
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  final bool hasSeenOnboarding;
+  const MyApp({super.key, this.hasSeenOnboarding = false});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  //User? user;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'RapsApp',
       debugShowCheckedModeBanner: false,
-      //initialRoute: 'profile_step1',
-      theme : ThemeData(colorScheme: ColorScheme.light()),
+      theme: ThemeData(
+        colorScheme: const ColorScheme.light(
+          primary: Color(0xFF00A896),
+          secondary: Color(0xFF028090),
+        ),
+        useMaterial3: true,
+      ),
       routes: {
-        '/': (context) => SplashScreenOne(),
+        '/': (context) => SplashScreenOne(onboarding: widget.hasSeenOnboarding),
         'regemail': (context) => RegisterWithEmail(),
         'regphone': (context) => RegisterWithMobileNumber(),
         'loginemail': (context) => LoginWithEmail(),

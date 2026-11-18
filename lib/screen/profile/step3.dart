@@ -22,7 +22,7 @@ class Step3 extends StatefulWidget {
 }
 extension StringExtension on String {
   String capitalize() {
-    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }
 class _Step3State extends State<Step3> {
@@ -33,7 +33,10 @@ class _Step3State extends State<Step3> {
   void updateSelectedDays(List<String> days) {
     setState(() {
       selectedDays = days.map((d) =>
-        WeekDays.values.firstWhere((e) => e.toString() == "WeekDays.${d.toLowerCase()}")
+        WeekDays.values.firstWhere(
+          (e) => e.name.toLowerCase() == d.toLowerCase(),
+          orElse: () => WeekDays.monday,
+        )
       ).toList();
     });
   }

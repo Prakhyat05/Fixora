@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:service/screen/Dashboard1/my_service_request.dart';
 
@@ -11,24 +9,54 @@ class NewJobs extends StatefulWidget {
 }
 
 class _NewJobsState extends State<NewJobs> {
+  bool isAccepted = false;
+  bool isRejected = false;
+
   @override
   Widget build(BuildContext context) {
+    if (isRejected) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(40),
+          child: Text(
+            "No new requests at the moment.",
+            style: TextStyle(color: Colors.black54, fontSize: 16),
+          ),
+        ),
+      );
+    }
+
     return Center(
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-            maxWidth: 400, maxHeight: 234 // Set a maximum width for the card
-            ),
+        constraints: const BoxConstraints(
+          maxWidth: 400,
+          maxHeight: 250,
+        ),
         child: MyServiceRequest(
           date: '12/06/2024',
           time: '09:00 AM',
           customerName: 'Ratn Govindam',
           serviceType: 'Electrician',
-          place: 'Patiala',
+          place: 'Patiala, Urban Estate',
           duration: '2 hrs',
           distance: '0.2 Km',
           price: '75',
-          leftButtonOnTap: (){},
-          rightButtonOnTap: (){},
+          leftButtonText: 'Decline',
+          rightButtonText: 'Accept',
+          leftButtonOnTap: () {
+            setState(() {
+              isRejected = true;
+            });
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Job request declined')),
+            );
+          },
+          rightButtonOnTap: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Job Accepted! Opening job details...')),
+            );
+            Navigator.pushNamed(context, 'clientOnGoingJob');
+          },
         ),
       ),
     );

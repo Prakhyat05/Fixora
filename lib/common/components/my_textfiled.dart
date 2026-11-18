@@ -8,7 +8,7 @@ class MyTextField extends StatelessWidget {
   final TextInputType keyboardtype;
   final String hintText;
   final String? suffixText;
-  final validator;
+  final String? Function(String?)? validator;
 
   final FocusNode _focusNode = FocusNode();
 

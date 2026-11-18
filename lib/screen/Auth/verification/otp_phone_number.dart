@@ -1,8 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 import 'package:service/common/components/my_appbar_back_button.dart';
 import 'package:service/common/components/my_desc_text_widget.dart';
@@ -10,8 +6,9 @@ import 'package:service/common/components/my_heading_text_widget.dart';
 import 'package:service/common/components/my_inkwell_button.dart';
 import 'package:service/common/components/my_text_button.dart';
 import 'package:service/common/components/my_text_widget.dart';
-
-import '../Register/RegisterWithMobileNumber/register_with_mobile_number.dart';
+import 'package:service/screen/Auth/Register/RegisterWithMobileNumber/register_with_mobile_number.dart';
+import 'package:service/screen/snackBar.dart';
+import 'package:service/service/authentication.dart';
 
 class OTPPhone extends StatefulWidget {
   const OTPPhone({super.key});
@@ -21,22 +18,67 @@ class OTPPhone extends StatefulWidget {
 }
 
 class _OTPPhoneState extends State<OTPPhone> {
-  TextEditingController pinController = TextEditingController();
-  FirebaseAuth auth = FirebaseAuth.instance;
+  final TextEditingController pinController = TextEditingController();
+  bool isVerifying = false;
+
+  @override
+  void dispose() {
+    pinController.dispose();
+    super.dispose();
+  }
+
+  void verifyCode() async {
+    if (pinController.text.length < 4) {
+      showSnackBar(context, "Please enter the complete verification code");
+      return;
+    }
+
+    setState(() {
+      isVerifying = true;
+    });
+
+    final phone = RegisterWithMobileNumber.phoneSend;
+    final success =
+        await AuthServices().verifyMobileOTP(phone, pinController.text.trim());
+
+    if (!mounted) return;
+    setState(() {
+      isVerifying = false;
+    });
+
+    if (success) {
+      Navigator.pushNamed(context, 'otpphoneverified');
+      await Future.delayed(const Duration(seconds: 2));
+      if (!mounted) return;
+      Navigator.pushNamed(context, 'emptystate');
+    } else {
+      showSnackBar(context, "Invalid OTP code. Please try again.");
+    }
+  }
+
+  void resendCode() async {
+    final phone = RegisterWithMobileNumber.phoneSend;
+    final sent = await AuthServices().requestMobileOTP(phone);
+    if (!mounted) return;
+    if (sent) {
+      showSnackBar(context, "A new OTP code has been sent!");
+    } else {
+      showSnackBar(context, "Failed to resend OTP. Please try again later.");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    var code = "";
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: MyAppBarBackButton(),
+        leading: const MyAppBarBackButton(),
         leadingWidth: 100,
         backgroundColor: Colors.white,
       ),
       body: SizedBox(
         child: Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 30,
             bottom: 25,
             left: 25,
@@ -49,59 +91,37 @@ class _OTPPhoneState extends State<OTPPhone> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MyHeadingTextWidget(text: 'OTP Verification'),
-
-                  // desc
-                  MyDescTextWidget(
-                      text:
-                          'Enter the verification code we just sent on your phone number.'),
-
-                  SizedBox(
-                    height: 20,
+                  const MyHeadingTextWidget(text: 'OTP Verification'),
+                  const SizedBox(height: 10),
+                  const MyDescTextWidget(
+                    text:
+                        'Enter the verification code we just sent to your phone number.',
                   ),
-
-                  Pinput(
+                  const SizedBox(height: 25),
+                  Center(
+                    child: Pinput(
                       length: 6,
                       showCursor: true,
                       controller: pinController,
-                      onCompleted: (pin) {
-                        pin = code;
-                      }),
-
-                  SizedBox(
-                    height: 25,
+                      onCompleted: (_) => verifyCode(),
+                    ),
                   ),
-
-                  // Verify Button
-                  MyTextButton(
-                      text: 'Verify',
-                      onPressed: () async {
-                        try {
-                          PhoneAuthCredential credential =
-                              await PhoneAuthProvider.credential(
-                                  verificationId:
-                                      RegisterWithMobileNumber.verify,
-                                  smsCode: pinController.text);
-                          await auth
-                              .signInWithCredential(credential)
-                              .then((value) async {
-                            Navigator.pushNamed(context, 'otpphoneverified');
-                            await Future.delayed(Duration(seconds: 2));
-                            // ignore: use_build_context_synchronously
-                            Navigator.pushNamed(context, 'emptystate');
-                          });
-                        } catch (e) {}
-                        ;
-                      }),
+                  const SizedBox(height: 25),
+                  isVerifying
+                      ? const Center(child: CircularProgressIndicator())
+                      : MyTextButton(
+                          text: 'Verify',
+                          onPressed: verifyCode,
+                        ),
                 ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width < 400 ? 151 : 350,
               ),
               Column(
                 children: [
-                  MyTextWidget(text: 'Didn\'t received code?'),
-                  MyInkWellButton(text: 'Resend', onPressed: () {}),
+                  const MyTextWidget(text: 'Didn\'t receive code?'),
+                  MyInkWellButton(
+                    text: 'Resend',
+                    onPressed: resendCode,
+                  ),
                 ],
               ),
             ],

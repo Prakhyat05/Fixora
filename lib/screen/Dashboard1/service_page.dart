@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:service/common/components/my_appbar_back_button.dart';
 import 'package:service/common/components/my_headingtwo.dart';
-import 'package:service/common/constants/colors.dart';
 import 'package:service/screen/Dashboard1/services.dart';
 
 class ServicePage extends StatefulWidget {
@@ -61,7 +60,7 @@ class _ServicePageState extends State<ServicePage> {
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30),
                         ),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black38,
                             blurRadius: 10,

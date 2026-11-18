@@ -1,5 +1,6 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:service/export.dart';
 
 class Comingsoon extends StatelessWidget {
   const Comingsoon({super.key});
@@ -7,10 +8,18 @@ class Comingsoon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
         leading: BackButton(
+          color: Colors.black87,
           onPressed: () {
-            Navigator.pushNamed(context, 'emptystate');
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            } else {
+              Navigator.pushReplacementNamed(context, 'dashboard');
+            }
           },
         ),
       ),
@@ -26,8 +35,27 @@ class Comingsoon extends StatelessWidget {
               children: [
                 Image.asset(
                   'assets/logo/extra/ComingSoon.png',
-                  width: 300,
-                  height: 375,
+                  width: 280,
+                  height: 320,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "Feature Under Active Development",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  "We're crafting this experience to bring you more value soon!",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black54,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),

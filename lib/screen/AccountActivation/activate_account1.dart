@@ -1,6 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
-
 import 'package:service/export.dart';
+import 'package:service/service/authentication.dart';
+import 'package:service/service/globals.dart';
 
 class ActivateAccount1 extends StatefulWidget {
   const ActivateAccount1({super.key});
@@ -11,114 +11,146 @@ class ActivateAccount1 extends StatefulWidget {
 
 class _ActivateAccount1State extends State<ActivateAccount1> {
   bool showOptions = false;
+  late final Razorpay _razorpay;
 
-  final Razorpay razorpay = Razorpay();
+  @override
+  void initState() {
+    super.initState();
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentErrorResponse);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccessResponse);
+  }
+
+  @override
+  void dispose() {
+    _razorpay.clear();
+    super.dispose();
+  }
+
+  void _startRazorpayPayment() {
+    try {
+      final userEmail = AuthServices.currentEmail ?? Globals.demoEmail;
+      final userPhone = AuthServices.currentPhone ?? Globals.demoPhone;
+
+      final options = {
+        'key': Globals.razorpayKey,
+        'amount': 100 * 39, // Rs. 39 nominal activation fee
+        'name': 'RAPSAPP',
+        'description': 'Provider Account Activation',
+        'method': {
+          'netbanking': false,
+          'card': false,
+          'upi': true,
+          'wallet': false,
+          'paylater': false,
+        },
+        'prefill': {
+          'contact': userPhone,
+          'email': userEmail,
+        },
+      };
+      _razorpay.open(options);
+    } catch (_) {
+      // In web/desktop or environments without native Razorpay, simulate success
+      _simulateDemoActivation();
+    }
+  }
+
+  void _simulateDemoActivation() {
+    Navigator.pushReplacementNamed(context, 'accs');
+  }
+
+  void _handlePaymentErrorResponse(PaymentFailureResponse response) {
+    _showAlertDialog(
+      "Payment Notice",
+      "Payment processing was interrupted or simulated.\nYou can also proceed using Demo Activation.",
+    );
+  }
+
+  void _handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+    Navigator.pushReplacementNamed(context, 'accs');
+  }
+
+  void _showAlertDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            ElevatedButton(
+              child: const Text("Continue"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: const MyAppBarBackButton(),
+      ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 50,
-            bottom: 25,
-            left: 25,
-            right: 25,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MyHeadingTextWidget(text: 'Activate Your Account'),
-              MyDescTextWidget(text: 'Pay a Nominal Fee of ₹39 to Get Started'),
-              SizedBox(height: 20),
-              MySecondHeading(text: 'Select payment option'),
-              SizedBox(height: 20),
+              const MyHeadingTextWidget(text: 'Activate Your Account'),
+              const MyDescTextWidget(text: 'Pay a Nominal Fee of ₹39 to Get Started'),
+              const SizedBox(height: 30),
+              const MySecondHeading(text: 'Select payment option'),
+              const SizedBox(height: 20),
+
+              // UPI Option
+              MyGestureButton(
+                onPressed: _startRazorpayPayment,
+                hintText: 'Pay ₹39 using UPI / Razorpay',
+              ),
+
+              const SizedBox(height: 15),
+
+              // Direct UPI ID Option
               MyGestureButton(
                 onPressed: () {
-                  var options = {
-                    'key': 'rzp_test_GcZZFDPP0jHtC4',
-                    'amount': 100 * 39, // as 39 need to be paid
-                    'name': 'RASP APP',
-                    'method': {
-                      'netbanking': 'false',
-                      'card': 'false',
-                      'upi': 'true',
-                      'wallet': 'false',
-                      'paylater': 'false'
-                    },
-                    'description': 'Subscription Fee',
-                    'prefill': {
-                      'contact': '9779791959',
-                      'email': 'rg.ratn@gmail.com'
-                    }
-                  };
-                  razorpay.open(options);
-                  razorpay.on(
-                      Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
-                  razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
-                      handlePaymentSuccessResponse);
+                  Navigator.pushNamed(context, 'aa_2');
                 },
-                hintText: 'Pay using UPI',
+                hintText: 'Pay using Custom UPI ID',
+              ),
+
+              const SizedBox(height: 25),
+
+              // Demo Activation Shortcut for Recruiters
+              Center(
+                child: TextButton.icon(
+                  icon: const Icon(Icons.check_circle_outline, color: Color(0xFF00A896)),
+                  label: const Text(
+                    "Simulate Instant Activation (Demo)",
+                    style: TextStyle(
+                      color: Color(0xFF00A896),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                  onPressed: _simulateDemoActivation,
+                ),
               ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  void handlePaymentErrorResponse(PaymentFailureResponse response) {
-    /*
-    * PaymentFailureResponse contains three values:
-    * 1. Error Code
-    * 2. Error Description
-    * 3. Metadata
-    * */
-    showAlertDialog(context, "Payment Failed",
-        "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
-  }
-
-  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
-    /*
-    * Payment Success Response contains three values:
-    * 1. Order ID
-    * 2. Payment ID
-    * 3. Signature
-    * */
-    showAlertDialog(
-        context, "Payment Successful", "Payment ID: ${response.paymentId}");
-
-    Navigator.pushReplacementNamed(context, 'dashboard');
-  }
-
-  void showAlertDialog(BuildContext context, String title, String message) {
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text(title),
-      content: Text(message),
-      actions: [
-        ElevatedButton(
-          child: const Text("Continue"),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        )
-      ],
-    );
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-
-    @override
-    void dispose() {
-      super.dispose();
-      razorpay.clear();
-    }
   }
 }

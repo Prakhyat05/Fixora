@@ -1,11 +1,6 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:service/export.dart';
-import 'package:service/screen/Dashboard1/empty_state.dart';
 import 'package:service/screen/snackBar.dart';
 import 'package:service/service/authentication.dart';
-import 'package:service/service/google_auth.dart';
-import 'package:service/service/otp.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -25,53 +20,46 @@ class _RegisterWithEmailState extends State<RegisterWithEmail> {
   bool isLoading = false;
 
   String? validateEmail(String? email) {
-    RegExp emailRegex = RegExp('^[a-zA-Z0-9_.±]+@gmail.com');
-    final isEmailValid = emailRegex.hasMatch(email ?? '');
-    if (!isEmailValid) {
+    if (email == null || email.isEmpty) {
+      return 'Please enter an email';
+    }
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(email)) {
       return 'Please enter a valid email';
     }
     return null;
   }
 
-  /*String? validatePassword(String? value) {
-    RegExp regex =
-        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-    final isPasswordValid = regex.hasMatch(value ?? '');
-    if (!isPasswordValid) {
-      return 'Enter valid password';
-    } else {
-      return null;
-    }
-  }*/
-
-  void dispose1() {
-    super.dispose();
+  @override
+  void dispose() {
     emailController.dispose();
     passwordController.dispose();
     nameController.dispose();
+    super.dispose();
   }
 
   void signUpUser() async {
-    String res = await AuthServices().signUPUser(
-        email: emailController.text,
-        password: passwordController.text,
-        name: nameController.text);
-    if (res == "success") {
-      setState(() {
-        isLoading = true;
-      });
-      requestOTP();
-      await Navigator.pushNamed(context, 'otpemail');
+    setState(() {
+      isLoading = true;
+    });
 
-      //sendOTP();
+    final res = await AuthServices().signUPUser(
+      email: emailController.text.trim(),
+      password: passwordController.text,
+      name: nameController.text.trim(),
+    );
+
+    if (!mounted) return;
+
+    if (res == "success") {
+      await AuthServices().requestOTP(emailController.text.trim());
+      if (!mounted) return;
+      await Navigator.pushNamed(context, 'otpemail');
     } else {
       setState(() {
         isLoading = false;
       });
-      showSnackBar(context, "Some Error Occurred");
-      /*Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) =>
-              showSnackBar(context, 'Some error Occurred! Try again')));*/
+      showSnackBar(context, res);
     }
   }
 
@@ -82,74 +70,66 @@ class _RegisterWithEmailState extends State<RegisterWithEmail> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        margin: EdgeInsets.only(top: 75, left: 25, right: 25, bottom: 25),
+        margin: const EdgeInsets.only(top: 75, left: 25, right: 25, bottom: 25),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Text
               MyHeadingTextWidget(text: createAnAccToGetStarted),
-
-              // space
-              SizedBox(
-                height: 30,
-              ),
-
+              const SizedBox(height: 30),
               Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     // Name
                     MyTextField(
-                        controller: nameController,
-                        keyboardtype: TextInputType.name,
-                        validator: (name) => name!.length < 3
-                            ? 'Name should be at least 3 characters'
-                            : null,
-                        hintText: enterYourName),
-
-                    SizedBox(
-                      height: 15,
+                      controller: nameController,
+                      keyboardtype: TextInputType.name,
+                      hintText: enterYourName,
+                      validator: (value) =>
+                          (value == null || value.isEmpty) ? 'Please enter your name' : null,
                     ),
+
+                    const SizedBox(height: 15),
 
                     // Email
                     MyTextField(
-                        controller: emailController,
-                        keyboardtype: TextInputType.emailAddress,
-                        validator: validateEmail,
-                        hintText: enterYourEmail),
-
-                    SizedBox(
-                      height: 15,
+                      controller: emailController,
+                      keyboardtype: TextInputType.emailAddress,
+                      hintText: enterYourEmail,
+                      validator: validateEmail,
                     ),
+
+                    const SizedBox(height: 15),
 
                     // Password
                     MyPasswordTextField(
-                        controller: passwordController,
-                        obsecureText: true,
-                        validator: (password) => password!.length < 6
-                            ? 'Password should be at least 6 characters'
-                            : null,
-                        hintText: enterYourPassword),
-
-                    SizedBox(
-                      height: 25,
+                      controller: passwordController,
+                      obsecureText: true,
+                      hintText: enterYourPassword,
+                      validator: (password) => (password == null || password.length < 6)
+                          ? 'Password should be at least 6 characters'
+                          : null,
                     ),
 
-                    // SignUp Button
-                    MyTextButton(
-                        text: signUp,
-                        onPressed: () {
-                          _formKey.currentState!.validate();
-                          signUpUser();
-                        }),
+                    const SizedBox(height: 25),
 
-                    SizedBox(
-                      height: 40,
-                    ),
+                    // Register Button
+                    isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : MyTextButton(
+                            text: signUp,
+                            onPressed: () {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                signUpUser();
+                              }
+                            },
+                          ),
 
-                    //
+                    const SizedBox(height: 40),
+
+                    // Divider
                     Row(
                       children: [
                         Expanded(
@@ -158,22 +138,18 @@ class _RegisterWithEmailState extends State<RegisterWithEmail> {
                             color: Colors.black38,
                           ),
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
+                        const SizedBox(width: 5),
                         Text(
                           orSignUpWith,
                           style: GoogleFonts.montserrat(
                             fontWeight: FontWeight.w400,
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               color: Colors.black54,
-                              fontSize: 20,
+                              fontSize: 18,
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
+                        const SizedBox(width: 5),
                         Expanded(
                           child: Container(
                             height: 1,
@@ -183,31 +159,33 @@ class _RegisterWithEmailState extends State<RegisterWithEmail> {
                       ],
                     ),
 
-                    SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
 
-                    // Another
+                    // Social Options
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         MyInkWellIcon(
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'regphone');
-                            },
-                            location: phoneLogo),
+                          onPressed: () {
+                            Navigator.pushNamed(context, 'regphone');
+                          },
+                          location: phoneLogo,
+                        ),
                         MyInkWellIcon(
-                            onPressed: () async {
-                              await FirebaseServices().signInWithGoogle();
-                              Navigator.pushNamed(context, 'profile_step1');
-                            },
-                            location: googleLogo),
+                          onPressed: () async {
+                            final nav = Navigator.of(context);
+                            final success = await AuthServices().signInGoogle();
+                            if (success) {
+                              nav.pushNamed('profile_step1');
+                            }
+                          },
+                          location: googleLogo,
+                        ),
                       ],
                     ),
 
                     SizedBox(
-                      height:
-                          MediaQuery.of(context).size.width < 400 ? 25 : 182,
+                      height: MediaQuery.of(context).size.width < 400 ? 25 : 80,
                     ),
 
                     Column(
@@ -216,10 +194,11 @@ class _RegisterWithEmailState extends State<RegisterWithEmail> {
                           text: alreadyHaveAnAccount,
                         ),
                         MyInkWellButton(
-                            text: "Login Now",
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'loginemail');
-                            }),
+                          text: "Login Now",
+                          onPressed: () {
+                            Navigator.pushNamed(context, 'loginemail');
+                          },
+                        ),
                       ],
                     )
                   ],

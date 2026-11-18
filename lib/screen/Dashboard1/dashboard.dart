@@ -21,8 +21,6 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-
-    print(MediaQuery.of(context).size.width);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
@@ -535,6 +533,8 @@ class _DashboardState extends State<Dashboard> {
 }
 
 class ReviewStar extends StatelessWidget {
+  const ReviewStar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Row(

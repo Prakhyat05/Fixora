@@ -4,7 +4,7 @@ class MyPasswordTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obsecureText;
-  final validator;
+  final String? Function(String?)? validator;
   const MyPasswordTextField({
     super.key,
     required this.controller,
@@ -51,7 +51,7 @@ class _MyPasswordTextFieldState extends State<MyPasswordTextField> {
           fillColor: Colors.grey[100],
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(2),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.grey,
             ),
           ),
@@ -59,11 +59,11 @@ class _MyPasswordTextFieldState extends State<MyPasswordTextField> {
             borderRadius: BorderRadius.circular(
               2,
             ),
-            borderSide: BorderSide(color: Colors.black54),
+            borderSide: const BorderSide(color: Colors.black54),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.black, // focused border color
               width: 2.0, // focused border width
             ),

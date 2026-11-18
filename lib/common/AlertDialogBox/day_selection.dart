@@ -90,7 +90,7 @@ class _DaySelectionState extends State<DaySelection> {
               children: [
                 /*ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black),
+                    backgroundColor: WidgetStateProperty.all(Colors.black),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -103,7 +103,7 @@ class _DaySelectionState extends State<DaySelection> {
                 //SizedBox(width: 8),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black),
+                    backgroundColor: WidgetStateProperty.all(Colors.black),
                   ),
                   onPressed: () {
                     List<String> selectedDays = [];

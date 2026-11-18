@@ -3,6 +3,8 @@
 import "package:service/export.dart";
 
 class NotificationTab extends StatefulWidget {
+  const NotificationTab({super.key});
+
   @override
   State<NotificationTab> createState() => _NotificationTabState();
 }

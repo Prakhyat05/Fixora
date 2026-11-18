@@ -1,9 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:flutter/material.dart';
-import 'package:service/common/components/my_headingtwo.dart';
-import 'package:service/common/components/my_text_widget.dart';
 import 'package:service/export.dart';
+import 'package:service/service/authentication.dart';
 
 class MyDrawerBottom extends StatefulWidget {
   const MyDrawerBottom({super.key});
@@ -29,8 +27,15 @@ class _MyDrawerBottomState extends State<MyDrawerBottom> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacementNamed(context, 'loginemail');
+                    onTap: () async {
+                      await AuthServices().logout();
+                      if (context.mounted) {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          'loginemail',
+                          (route) => false,
+                        );
+                      }
                     },
                     child: MySecondHeading(
                       text: 'Logout',

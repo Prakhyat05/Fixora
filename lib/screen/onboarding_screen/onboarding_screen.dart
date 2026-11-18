@@ -156,24 +156,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       child: TextButton(
                                         onPressed: () async {
                                           if (isLastPage) {
-                                            /*final pres = await SharedPreferences
-                                                .getInstance();
-                                            pres.setBool('onboarding', true);
-
-                                            if (mounted!) return;*/
-                                            Navigator.pushNamed(
-                                                context, 'regemail');
+                                            final nav = Navigator.of(context);
+                                            try {
+                                              final prefs = await SharedPreferences.getInstance();
+                                              await prefs.setBool('onboarding', true);
+                                            } catch (_) {}
+                                            nav.pushReplacementNamed('loginemail');
                                           } else {
                                             pageController.nextPage(
                                               duration:
-                                                  Duration(milliseconds: 1),
-                                              curve: Curves.ease,
+                                                  const Duration(milliseconds: 300),
+                                              curve: Curves.easeInOut,
                                             );
                                           }
                                         },
                                         style: ButtonStyle(
                                           minimumSize:
-                                              MaterialStateProperty.all<Size>(
+                                              WidgetStateProperty.all<Size>(
                                             Size(
                                               MediaQuery.of(context)
                                                           .size
@@ -189,7 +188,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                                   : 65,
                                             ),
                                           ),
-                                          shape: MaterialStateProperty.all<
+                                          shape: WidgetStateProperty.all<
                                               RoundedRectangleBorder>(
                                             RoundedRectangleBorder(
                                               borderRadius:
@@ -204,8 +203,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                             ),
                                           ),
                                           backgroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                            Color(0x00000000).withOpacity(1),
+                                              WidgetStateProperty.all<Color>(
+                                            const Color(0x00000000).withOpacity(1),
                                           ),
                                         ),
                                         child: Text(

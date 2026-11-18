@@ -1,8 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:flutter/material.dart';
 import 'package:service/export.dart';
-import 'package:service/screen/ComingSoon.dart';
 
 class ProviderDashboard extends StatelessWidget {
   @override
@@ -24,9 +22,8 @@ class ProviderDashboard extends StatelessWidget {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  ('Hello\n' +
-                      RegisterWithMobileNumber
-                          .nameSend), //or (Hello\n' + RegisterWithEmail.nameSend),
+                  ('Hello\n${RegisterWithMobileNumber
+                          .nameSend}'), //or (Hello\n' + RegisterWithEmail.nameSend),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -164,7 +161,7 @@ class SectionTitle extends StatelessWidget {
   final String title;
   final String action;
 
-  SectionTitle({required this.title, required this.action});
+  const SectionTitle({required this.title, required this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +190,7 @@ class EarningsColumn extends StatelessWidget {
   final String label;
   final String amount;
 
-  EarningsColumn({required this.label, required this.amount});
+  const EarningsColumn({required this.label, required this.amount});
 
   @override
   Widget build(BuildContext context) {

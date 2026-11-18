@@ -3,6 +3,8 @@
 import 'package:service/export.dart';
 
 class JobsTabBar extends StatefulWidget {
+  const JobsTabBar({super.key});
+
   @override
   State<JobsTabBar> createState() => _JobsTabBarState();
 }

@@ -31,9 +31,10 @@ class _StartingAnimationState extends State<StartingAnimation>
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
-    // Navigate to the onboarding screen after 3 seconds
-    Future.delayed(Duration(seconds: 7), () {
-      Navigator.pushReplacementNamed(context,'clientOnGoingJob');
+    Future.delayed(Duration(seconds: 4), () {
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, 'clientOnGoingJob');
+      }
     });
   }
 

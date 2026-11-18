@@ -65,8 +65,7 @@ class _LoginWithMobileNumberState extends State<LoginWithMobileNumber> {
                   MyPasswordTextField(
                       controller: passwordController,
                       obsecureText: true,
-                      validator:
-                          validatePassword(passwordController.text.toString()),
+                      validator: (val) => validatePassword(val ?? ''),
                       hintText: enterYourPassword),
 
                   SizedBox(

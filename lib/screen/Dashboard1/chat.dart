@@ -1,6 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
+import 'package:service/export.dart';
 
-import "package:service/export.dart";
+class ChatMessage {
+  final String text;
+  final bool isMe;
+  final String time;
+
+  ChatMessage({required this.text, required this.isMe, required this.time});
+}
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -10,14 +16,60 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  List<String> messages = [];
-  TextEditingController _controller = TextEditingController();
+  final List<ChatMessage> _messages = [
+    ChatMessage(
+      text: "Hello! Are you on your way to the location?",
+      isMe: false,
+      time: "09:15 AM",
+    ),
+    ChatMessage(
+      text: "Hi Ratn, yes! I'm around 5 minutes away, just approaching Main Market.",
+      isMe: true,
+      time: "09:16 AM",
+    ),
+    ChatMessage(
+      text: "Sounds great! The door bell is working. Flat 402 on the 4th floor.",
+      isMe: false,
+      time: "09:17 AM",
+    ),
+    ChatMessage(
+      text: "Understood! I have brought the required electrical diagnostic tools with me.",
+      isMe: true,
+      time: "09:18 AM",
+    ),
+  ];
+
+  final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   void _sendMessage() {
-    if (_controller.text.isNotEmpty) {
+    final text = _controller.text.trim();
+    if (text.isNotEmpty) {
       setState(() {
-        messages.add(_controller.text);
+        _messages.add(
+          ChatMessage(
+            text: text,
+            isMe: true,
+            time: "Just now",
+          ),
+        );
         _controller.clear();
+      });
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (_scrollController.hasClients) {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
       });
     }
   }
@@ -25,157 +77,154 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      backgroundColor: const Color(0xFFF7F9FC),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 1,
+        leading: const MyAppBarBackButton(),
+        titleSpacing: 0,
+        title: Row(
           children: [
-            // Appbar Back Button
-            MyAppBarBackButton(),
-            SizedBox(
-              width: 10,
+            CircleAvatar(
+              backgroundColor: const Color(0xFFE0F2F1),
+              radius: 18,
+              child: Image.asset(
+                profileImage,
+                width: 32,
+                height: 32,
+              ),
             ),
-            // Circular Avtar & image
+            const SizedBox(width: 10),
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 30,
+                Text(
+                  "Ratn Govindam",
+                  style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: Colors.black87,
+                  ),
                 ),
-                CircleAvatar(
-                  backgroundColor: Color.fromARGB(255, 217, 217, 217),
-                  radius: MediaQuery.of(context).size.width < 400 ? 18 : 22,
-                  child: Image.asset(
-                    profileImage,
-                    width: 100,
-                    height: 100,
+                Text(
+                  "Online • Client",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 12,
+                    color: Colors.green,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
-            SizedBox(
-              width: 10,
-            ),
-            // providers name
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                MySecondHeading(
-                  text: providersName,
-                  fontsize: MediaQuery.of(context).size.width < 400 ? 14 : 16,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    MyDescTextWidget(
-                      text: 'Online',
-                      fontSize:
-                          MediaQuery.of(context).size.width < 400 ? 9 : 10,
-                    ),
-                    SizedBox(
-                      width: 4,
-                    ),
-                    Center(
-                      child: CircleAvatar(
-                        radius: 2,
-                        backgroundColor: Colors.green,
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            // green tick
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 18,
-                ),
-                Image.asset(
-                  greenVerifiedTick,
-                  width: MediaQuery.of(context).size.width < 400 ? 10 : 14,
-                  height: MediaQuery.of(context).size.width < 400 ? 10 : 14,
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 25,
-            ),
-            // call icon
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                Icon(
-                  Icons.call,
-                  size: MediaQuery.of(context).size.width < 400 ? 25 : 30,
-                ),
-              ],
-            )
           ],
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.call, color: Colors.black87),
+            onPressed: () {
+              Navigator.pushNamed(context, 'call');
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.all(10.0),
-              itemCount: messages.length,
+              controller: _scrollController,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              itemCount: _messages.length,
               itemBuilder: (context, index) {
+                final msg = _messages[index];
                 return Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: msg.isMe ? Alignment.centerRight : Alignment.centerLeft,
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 5.0),
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      color: Colors.blue[100],
-                      borderRadius: BorderRadius.circular(10.0),
+                    margin: const EdgeInsets.symmetric(vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width * 0.75,
                     ),
-                    child: Text(
-                      messages[index],
-                      style: TextStyle(fontSize: 16.0),
+                    decoration: BoxDecoration(
+                      color: msg.isMe ? const Color(0xFF00A896) : Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(16),
+                        topRight: const Radius.circular(16),
+                        bottomLeft: Radius.circular(msg.isMe ? 16 : 2),
+                        bottomRight: Radius.circular(msg.isMe ? 2 : 16),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.04),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment:
+                          msg.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          msg.text,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: msg.isMe ? Colors.white : Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          msg.time,
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: msg.isMe ? Colors.white70 : Colors.black45,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 );
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      hintText: 'Enter your message...',
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+          Container(
+            padding: const EdgeInsets.all(10),
+            color: Colors.white,
+            child: SafeArea(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller,
+                      onSubmitted: (_) => _sendMessage(),
+                      decoration: InputDecoration(
+                        hintText: 'Type your message...',
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: const BorderSide(color: Colors.black12),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: const BorderSide(color: Colors.black12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: const BorderSide(color: Color(0xFF00A896), width: 1.5),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: _sendMessage,
-                ),
-              ],
+                  const SizedBox(width: 8),
+                  CircleAvatar(
+                    backgroundColor: const Color(0xFF00A896),
+                    radius: 22,
+                    child: IconButton(
+                      icon: const Icon(Icons.send, color: Colors.white, size: 20),
+                      onPressed: _sendMessage,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

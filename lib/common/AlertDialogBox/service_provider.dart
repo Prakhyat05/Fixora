@@ -16,17 +16,17 @@ class _ServiceProviderState extends State<ServiceProvider> {
   void initState() {
     super.initState();
 
-    this.category.add({"id": 1, "name": "Personal Services"});
-    this.category.add({"id": 2, "name": "Home Maintenance"});
-    this.category.add({"id": 3, "name": "Education"});
-    this.category.add({"id": 4, "name": "Household and Other Services"});
-    this.category.add({"id": 5, "name": "Health and Wellness"});
-    this.category.add({"id": 6, "name": "Professional Services"});
-    this.category.add({"id": 7, "name": "Event and Entertainment"});
-    this.category.add({"id": 8, "name": "Food and Beverage"});
-    this.category.add({"id": 9, "name": "Transportation"});
-    this.category.add({"id": 10, "name": "Travel and Hospitality"});
-    this.category.add({"id": 11, "name": "Technology and Digital Services"});
+    category.add({"id": 1, "name": "Personal Services"});
+    category.add({"id": 2, "name": "Home Maintenance"});
+    category.add({"id": 3, "name": "Education"});
+    category.add({"id": 4, "name": "Household and Other Services"});
+    category.add({"id": 5, "name": "Health and Wellness"});
+    category.add({"id": 6, "name": "Professional Services"});
+    category.add({"id": 7, "name": "Event and Entertainment"});
+    category.add({"id": 8, "name": "Food and Beverage"});
+    category.add({"id": 9, "name": "Transportation"});
+    category.add({"id": 10, "name": "Travel and Hospitality"});
+    category.add({"id": 11, "name": "Technology and Digital Services"});
   }
 
   @override
@@ -47,11 +47,10 @@ class _ServiceProviderState extends State<ServiceProvider> {
             child: FormHelper.dropDownWidget(
               context,
               "Select Service Category",
-              this.categoryId,
-              this.category,
+              categoryId,
+              category,
               (onChangedVal) {
-                this.categoryId = onChangedVal;
-                print('Selected Category: $onChangedVal');
+                categoryId = onChangedVal;
               },
               (onValidateVal) {
                 if (onValidateVal == null) {
