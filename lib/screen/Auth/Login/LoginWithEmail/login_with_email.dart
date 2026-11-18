@@ -130,12 +130,15 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                         ),
                       ),
                       icon: const Icon(Icons.bolt, color: Color(0xFF00A896)),
-                      label: Text(
-                        "Quick Demo Login (For Recruiters)",
-                        style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFF00A896),
-                          fontSize: 14,
+                      label: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          "Quick Demo Login (For Recruiters)",
+                          style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFF00A896),
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                       onPressed: loginAsDemo,
@@ -147,17 +150,20 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, 'forgetpassword');
-                          },
-                          child: Text(
-                            forgetPassword,
-                            style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w400,
-                              textStyle: const TextStyle(
-                                color: Colors.black38,
-                                fontSize: 18,
+                        Flexible(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, 'forgetpassword');
+                            },
+                            child: Text(
+                              forgetPassword,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.w400,
+                                textStyle: const TextStyle(
+                                  color: Colors.black38,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                           ),
