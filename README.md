@@ -62,30 +62,30 @@
 ## 📊 System Architecture Diagram
 
 ```mermaid
-graph TD
-    subgraph UI_Layer [Presentation Layer (Flutter)]
-        A[Splash & Onboarding] --> B[Authentication Flow]
-        B --> C[5-Step KYC Verification]
-        C --> D[Account Activation & Fee]
-        D --> E[Provider Dashboard]
-        E --> F[Job Dispatch & Tabs]
-        E --> G[In-App Chat & Calling]
-        E --> H[Location & Navigation Map]
-        E --> I[Earnings & Reviews Analytics]
+flowchart TD
+    subgraph UI_Layer ["Presentation Layer"]
+        A["Splash & Onboarding"] --> B["Authentication Flow"]
+        B --> C["5-Step KYC Verification"]
+        C --> D["Account Activation & Fee"]
+        D --> E["Provider Dashboard"]
+        E --> F["Job Dispatch & Tabs"]
+        E --> G["In-App Chat & Calling"]
+        E --> H["Location & Navigation Map"]
+        E --> I["Earnings & Reviews Analytics"]
     end
 
-    subgraph Service_Layer [Business Logic & Service Layer]
-        J[AuthServices Singleton]
-        K[Globals & Environment Config]
-        L[Local Cache - SharedPreferences]
+    subgraph Service_Layer ["Business Logic & Services"]
+        J["AuthServices Singleton"]
+        K["Globals & Environment Config"]
+        L["Local Cache - SharedPreferences"]
     end
 
-    subgraph Backend_Gateways [Network & External Integrations]
-        M[Node.js REST API Backend]
-        N[Razorpay / UPI Payment Gateway]
-        O[PhonePe Payment SDK]
-        P[Google Sign-In Gateway]
-        Q[Demo Mock Fallback Engine]
+    subgraph Backend_Gateways ["Network & External Integrations"]
+        M["Node.js REST API Backend"]
+        N["Razorpay / UPI Payment Gateway"]
+        O["PhonePe Payment SDK"]
+        P["Google Sign-In Gateway"]
+        Q["Demo Mock Fallback Engine"]
     end
 
     UI_Layer --> Service_Layer
@@ -121,20 +121,20 @@ sequenceDiagram
     App->>Auth: Verify OTP & Initialize Session
 
     Note over Provider,App: Step 1: Personal Profile & Live Photo
-    Provider->>App: Submit Name, Town, City, District, Pincode & Avatar
+    Provider->>App: Submit Name, Address & Avatar
 
     Note over Provider,App: Step 2: Primary & Secondary Services
-    Provider->>App: Select Category (e.g. Electrician), Hourly Rate (₹75/hr)
+    Provider->>App: Select Category & Hourly Rate
 
     Note over Provider,App: Step 3: Availability & Working Hours
-    Provider->>App: Set Active Days (Mon-Sat) & Shift Window (09:00 AM - 06:00 PM)
+    Provider->>App: Set Active Days & Shift Window
 
     Note over Provider,App: Step 4: Identity & KYC Verification
     Provider->>App: Submit 12-Digit Aadhaar Identification
 
     Note over Provider,App: Step 5: Bank Payout Settlement
-    Provider->>App: Submit Bank Account Number, Branch & IFSC Code
-    App->>Auth: createProfile() + addService()
+    Provider->>App: Submit Bank Account Number & IFSC
+    App->>Auth: createProfile and addService
     Auth->>Backend: Persist Encrypted KYC Profile
     Backend-->>App: Profile Created Successfully
 ```
@@ -147,23 +147,23 @@ To eliminate billing disputes and ensure contractor safety, RapsApp implements a
 
 ```mermaid
 stateDiagram-v2
-    [*] --> NewJobReceived: Push Notification / Broadcast
-    NewJobReceived --> JobAccepted: Provider Taps "Accept"
-    NewJobReceived --> JobDeclined: Provider Taps "Decline"
+    [*] --> NewJobReceived
+    NewJobReceived --> JobAccepted : Provider Accepts
+    NewJobReceived --> JobDeclined : Provider Declines
     JobDeclined --> [*]
 
-    JobAccepted --> RouteNavigation: Open Customer Location Map
-    RouteNavigation --> ProviderArrived: Tap "I Have Arrived" (ETA Checked)
+    JobAccepted --> RouteNavigation : Open Location Map
+    RouteNavigation --> ProviderArrived : Provider Arrives at Site
 
-    ProviderArrived --> StartOTPVerification: Prompt Customer for 4-Digit Start OTP
-    StartOTPVerification --> JobOngoing: Start OTP Validated & Job Clock Begins
+    ProviderArrived --> StartOTPVerification : Prompt Client for Start OTP
+    StartOTPVerification --> JobOngoing : Start OTP Validated
 
-    JobOngoing --> InAppCommunication: In-App Chat / Voice Call if needed
-    JobOngoing --> MarkAsComplete: Provider Completes Maintenance Task
+    JobOngoing --> InAppCommunication : In-App Chat or Voice Call
+    JobOngoing --> MarkAsComplete : Provider Finishes Task
 
-    MarkAsComplete --> EndOTPVerification: Request Customer Completion OTP
-    EndOTPVerification --> PaymentSettlement: Completion OTP Confirmed
-    PaymentSettlement --> CustomerReview: Rating & Feedback Submitted
+    MarkAsComplete --> EndOTPVerification : Prompt Client for Completion OTP
+    EndOTPVerification --> PaymentSettlement : Completion OTP Confirmed
+    PaymentSettlement --> CustomerReview : Rating & Review Added
     CustomerReview --> [*]
 ```
 
@@ -173,18 +173,18 @@ stateDiagram-v2
 
 ```mermaid
 flowchart LR
-    A[Complete KYC Step 5] --> B[Activate Account Screen]
-    B --> C{Select Payment Method}
-    C -->|UPI / Razorpay| D[Launch Razorpay Gateway]
-    C -->|Custom UPI ID| E[Validate UPI String]
-    C -->|Recruiter Demo| F[Instant Mock Activation]
+    A["Complete KYC Step 5"] --> B["Activate Account Screen"]
+    B --> C{"Select Payment Method"}
+    C -->|UPI or Razorpay| D["Launch Razorpay Gateway"]
+    C -->|Custom UPI ID| E["Validate UPI String"]
+    C -->|Recruiter Demo| F["Instant Mock Activation"]
 
-    D --> G{Payment Status}
+    D --> G{"Payment Status"}
     E --> G
-    F --> H[Account Activated Screen]
+    F --> H["Account Activated Screen"]
     G -->|Success| H
     G -->|Failed| B
-    H --> I[Auto-Redirect to Provider Dashboard]
+    H --> I["Auto-Redirect to Provider Dashboard"]
 ```
 
 ---
