@@ -22,19 +22,20 @@
 
 ## 📌 Table of Contents
 1. [Executive Summary](#-executive-summary)
-2. [Key Architectural Highlights](#-key-architectural-highlights)
-3. [System Architecture Diagram](#-system-architecture-diagram)
-4. [User Flows & Diagrams](#-user-flows--diagrams)
+2. [Releases & Downloads (ARM & Universal)](#-releases--downloads-arm--universal)
+3. [Key Architectural Highlights](#-key-architectural-highlights)
+4. [System Architecture Diagram](#-system-architecture-diagram)
+5. [User Flows & Diagrams](#-user-flows--diagrams)
    - [1. Provider Onboarding & 5-Step KYC](#1-service-provider-onboarding--5-step-kyc)
    - [2. Service Job Lifecycle & Dual-OTP Handshake](#2-service-job-lifecycle--dual-otp-handshake)
    - [3. Payment & Activation Flow](#3-payment--account-activation-flow)
-5. [Core Features](#-core-features)
-6. [Tech Stack & Dependencies](#-tech-stack--dependencies)
-7. [Directory Structure](#-directory-structure)
-8. [Getting Started & Quick Demo](#-getting-started--quick-demo)
-9. [Testing & Quality Assurance](#-testing--quality-assurance)
-10. [Security & Best Practices](#-security--best-practices)
-11. [Resume Showcase (STAR Bullets)](#-resume-showcase-star-bullets)
+6. [Core Features](#-core-features)
+7. [Tech Stack & Dependencies](#-tech-stack--dependencies)
+8. [Directory Structure](#-directory-structure)
+9. [Getting Started & Quick Demo](#-getting-started--quick-demo)
+10. [Testing & Quality Assurance](#-testing--quality-assurance)
+11. [Security & Best Practices](#-security--best-practices)
+12. [Resume Showcase (STAR Bullets)](#-resume-showcase-star-bullets)
 
 ---
 
@@ -46,6 +47,21 @@
 - **Mutual Security Handshake**: Cryptographic OTP verification before a provider commences work and upon completion, preventing fraud and dispute.
 - **Provider Productivity Suite**: Real-time incoming job dispatch, scheduled job calendar, route ETA mapping, integrated voice call & messaging, and granular earnings analytics.
 - **Zero-Friction Recruiter Mode**: Built-in intelligent offline demo fallback ensuring any reviewer or interviewer can test all user journeys out-of-the-box without server setup.
+
+---
+
+## 🚀 Releases & Downloads (ARM & Universal)
+
+Pre-compiled production APKs are published on GitHub Releases, split per ABI for optimal download size and device performance:
+
+| Target Architecture | Size | Recommended Devices | Direct Download | Dedicated GitHub Release |
+|:---|:---:|:---|:---:|:---:|
+| **ARM64-v8a** (64-bit) | **23.9 MB** | Modern Android phones (Snapdragon 8/7/6 Gen, Tensor, Dimensity, Exynos) | [⬇️ Download ARM64 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/RapsApp-v1.0.0-arm64-v8a.apk) | [🏷️ `v1.0.0-arm64`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0-arm64) |
+| **ARMeabi-v7a** (32-bit) | **21.5 MB** | Budget, entry-level, and legacy 32-bit Android devices | [⬇️ Download ARMv7 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/RapsApp-v1.0.0-armeabi-v7a.apk) | [🏷️ `v1.0.0-armv7`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0-armv7) |
+| **x86_64** (64-bit PC) | **25.0 MB** | Android Studio Emulators, Chromebooks, WSA | [⬇️ Download x86_64 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/RapsApp-v1.0.0-x86_64.apk) | [🏷️ `v1.0.0`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0) |
+| **Universal (Fat APK)** | **54.5 MB** | Universal fallback containing all CPU architectures | [⬇️ Download Universal APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/RapsApp-v1.0.0-universal.apk) | [🏷️ `v1.0.0 (Latest)`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0) |
+
+> 💡 **Why ABI Splits?** By distributing dedicated ARM builds (`arm64-v8a` and `armeabi-v7a`), end users download over **56% smaller binaries** (21–23 MB vs 54.5 MB), drastically speeding up download speeds and conserving mobile data.
 
 ---
 
