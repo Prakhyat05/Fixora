@@ -35,7 +35,6 @@
 9. [Getting Started & Quick Demo](#-getting-started--quick-demo)
 10. [Testing & Quality Assurance](#-testing--quality-assurance)
 11. [Security & Best Practices](#-security--best-practices)
-12. [Resume Showcase (STAR Bullets)](#-resume-showcase-star-bullets)
 
 ---
 
@@ -341,18 +340,6 @@ Analyzing RapsApp... No issues found!
 2. **Asynchronous Guarding**: All `BuildContext` references across async gaps are strictly guarded with `if (!mounted) return;` to avoid memory corruption.
 3. **Graceful Degradation**: HTTP calls enforce 4-second timeout buffers with automatic fallback to mock data, preventing network hangs on slow 3G/4G cellular connections.
 4. **Input Sanitization**: Email formats, 10-digit phone constraints, and Aadhaar numbers undergo Regex verification prior to network dispatch.
-
----
-
-## 💼 Resume Showcase (STAR Bullets)
-
-*Feel free to copy and paste these high-impact bullet points directly into your software engineering resume:*
-
-- **Architected and delivered RapsApp**, an on-demand hyperlocal handyman marketplace mobile application built with **Flutter & Dart**, connecting service professionals with residential clients across urban service hubs.
-- **Engineered a 5-step KYC & background verification wizard**, capturing Aadhaar credentials, bank IFSC accounts, and custom hourly service catalogues, reducing contractor onboarding drop-off.
-- **Implemented a mutual Dual-OTP handshake protocol** using cryptographic SMS/Email verification for physical arrival and task completion, mitigating contractor fraud and payment disputes.
-- **Integrated multi-gateway payment processing (Razorpay & UPI)** with clean lifecycle management, automated subscription fees, and real-time transaction state synchronizations.
-- **Designed an intelligent offline fallback architecture**, allowing seamless end-to-end recruiter evaluation without cloud infrastructure dependencies; maintained **100% test coverage across core auth flows with zero linter warnings**.
 
 ---
 
