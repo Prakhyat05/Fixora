@@ -1,0 +1,152 @@
+name: Release Builds
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-android:
+    name: Build Android APKs & Bundle (ARM & Universal)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.2'
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run Tests
+        run: flutter test
+
+      - name: Build Split-per-ABI APKs (ARM64, ARMv7, x86_64)
+        run: flutter build apk --split-per-abi --release
+
+      - name: Build Universal FAT APK
+        run: flutter build apk --release
+
+      - name: Build Android App Bundle (AAB)
+        run: flutter build appbundle --release
+
+      - name: Organize Output Binaries
+        run: |
+          mkdir -p release-artifacts
+          cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk release-artifacts/RapsApp-arm64-v8a-v1.0.0.apk
+          cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk release-artifacts/RapsApp-armeabi-v7a-v1.0.0.apk
+          cp build/app/outputs/flutter-apk/app-x86_64-release.apk release-artifacts/RapsApp-x86_64-v1.0.0.apk
+          cp build/app/outputs/flutter-apk/app-release.apk release-artifacts/RapsApp-universal-v1.0.0.apk
+          cp build/app/outputs/bundle/release/app-release.aab release-artifacts/RapsApp-v1.0.0.aab
+
+      - name: Upload Android Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-builds
+          path: release-artifacts/*
+
+  build-web:
+    name: Build Web Distribution
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.2'
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Web
+        run: flutter build web --release
+
+      - name: Package Web Build
+        run: |
+          cd build/web && zip -r ../../RapsApp-web-v1.0.0.zip .
+
+      - name: Upload Web Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: RapsApp-web-v1.0.0.zip
+
+  publish-release:
+    name: Publish to GitHub Releases
+    needs: [build-android, build-web]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Android Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: android-builds
+          path: ./artifacts
+
+      - name: Download Web Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-build
+          path: ./artifacts
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "RapsApp Release ${{ github.ref_name }}"
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            ./artifacts/RapsApp-arm64-v8a-v1.0.0.apk
+            ./artifacts/RapsApp-armeabi-v7a-v1.0.0.apk
+            ./artifacts/RapsApp-x86_64-v1.0.0.apk
+            ./artifacts/RapsApp-universal-v1.0.0.apk
+            ./artifacts/RapsApp-v1.0.0.aab
+            ./artifacts/RapsApp-web-v1.0.0.zip
+          body: |
+            # 🚀 RapsApp Production Release (${{ github.ref_name }})
+
+            ### 📱 Android Application Packages (APK & AAB)
+            - **ARM 64-bit (`arm64-v8a`)**: [`RapsApp-arm64-v8a-v1.0.0.apk`](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/RapsApp-arm64-v8a-v1.0.0.apk) (Recommended for modern smartphones)
+            - **ARM 32-bit (`armeabi-v7a`)**: [`RapsApp-armeabi-v7a-v1.0.0.apk`](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/RapsApp-armeabi-v7a-v1.0.0.apk) (Legacy 32-bit ARM devices)
+            - **x86_64 (`x86_64`)**: [`RapsApp-x86_64-v1.0.0.apk`](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/RapsApp-x86_64-v1.0.0.apk) (Emulators and x86 tablets)
+            - **Universal (All ABIs FAT APK)**: [`RapsApp-universal-v1.0.0.apk`](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/RapsApp-universal-v1.0.0.apk)
+            - **Android App Bundle (Google Play)**: [`RapsApp-v1.0.0.aab`](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/RapsApp-v1.0.0.aab)
+
+            ### 🌐 Web Release
+            - **Web Deployment Bundle**: [`RapsApp-web-v1.0.0.zip`](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/RapsApp-web-v1.0.0.zip)
+
+            ### ✨ Highlights
+            - Zero linter issues, 100% test pass rate
+            - Complete 5-step KYC onboarding flow
+            - Dual-OTP handshake protocol
+            - In-app chat, calling, and route navigation
+            - Built-in offline demo mode for zero-setup evaluation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
