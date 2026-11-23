@@ -66,7 +66,7 @@ class _DashboardUserProfileState extends State<DashboardUserProfile> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     MySecondHeading(
-                      text: 'Provider\'s Name',
+                      text: 'Prakhyat Prakhar',
                       fontWeight: FontWeight.w500,
                       fontsize: 18,
                     ),

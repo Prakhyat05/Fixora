@@ -29,7 +29,7 @@ class _MyDrawerHeaderState extends State<MyDrawerHeader> {
           ),
           SizedBox(height: 10),
           MySecondHeading(
-            text: 'Ratn Govindam',
+            text: 'Prakhyat Prakhar',
             fontWeight: FontWeight.w400,
             fontsize: 22,
           ),

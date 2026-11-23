@@ -35,7 +35,7 @@ class _NewJobsState extends State<NewJobs> {
         child: MyServiceRequest(
           date: '12/06/2024',
           time: '09:00 AM',
-          customerName: 'Ratn Govindam',
+          customerName: 'Prakhyat Prakhar',
           serviceType: 'Electrician',
           place: 'Patiala, Urban Estate',
           duration: '2 hrs',

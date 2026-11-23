@@ -26,7 +26,7 @@ class _JobsPageState extends State<JobsPage> {
       price: '70',
       date: '11/06/2024',
       serviceType: 'Electrician',
-      customerName: 'Ratn Govindam',
+      customerName: 'Prakhyat Prakhar',
       place: 'Patiala',
     ),
     Job(
@@ -36,7 +36,7 @@ class _JobsPageState extends State<JobsPage> {
       price: '70',
       date: '11/06/2024',
       serviceType: 'Plumber',
-      customerName: 'Ratn Govindam',
+      customerName: 'Prakhyat Prakhar',
       place: 'Patiala',
     ),
   ];

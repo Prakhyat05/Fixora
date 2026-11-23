@@ -262,7 +262,7 @@ class _DashboardState extends State<Dashboard> {
                               ? MyServiceRequest(
                                   date: 'Date',
                                   time: 'Time',
-                                  customerName: 'Name',
+                                  customerName: 'Prakhyat Prakhar',
                                   serviceType: "Service",
                                   place: 'place',
                                   duration: '2 Hours',

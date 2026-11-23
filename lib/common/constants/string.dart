@@ -27,7 +27,7 @@ String nextText = "Next",
     verify = 'Verify',
     resend = 'Resend',
     calling = 'Calling ...',
-    providersName = 'Provider\'s Name',
+    providersName = 'Prakhyat Prakhar',
     accountCreatedSuccessfullyText = 'Account Created Successfully';
 
 // image location in form of string

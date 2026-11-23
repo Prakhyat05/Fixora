@@ -23,7 +23,7 @@ class _ChatPageState extends State<ChatPage> {
       time: "09:15 AM",
     ),
     ChatMessage(
-      text: "Hi Ratn, yes! I'm around 5 minutes away, just approaching Main Market.",
+      text: "Hi Prakhyat, yes! I'm around 5 minutes away, just approaching Main Market.",
       isMe: true,
       time: "09:16 AM",
     ),
@@ -99,7 +99,7 @@ class _ChatPageState extends State<ChatPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Ratn Govindam",
+                  "Prakhyat Prakhar",
                   style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
