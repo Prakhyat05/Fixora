@@ -43,6 +43,16 @@ class SplashScreenTwo extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(22),
+                child: Image.asset(
+                  "assets/app_Icon.jpg",
+                  width: 84,
+                  height: 84,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 16),
               Center(
                 child: Text(
                   "FIXORA",

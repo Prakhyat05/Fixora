@@ -50,6 +50,16 @@ class _SplashScreenOneState extends State<SplashScreenOne> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(22),
+                child: Image.asset(
+                  "assets/app_Icon.jpg",
+                  width: 90,
+                  height: 90,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 16),
               Text(
                 "FIXORA",
                 style: GoogleFonts.montserrat(
