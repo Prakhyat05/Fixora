@@ -2,7 +2,7 @@ class Globals {
   /// Base URL of the backend REST API
   static const String backendURL = String.fromEnvironment(
     'BACKEND_URL',
-    defaultValue: "https://rapsapp-3b673.uc.r.appspot.com",
+    defaultValue: "https://fixora-3b673.uc.r.appspot.com",
   );
 
   /// Razorpay key - can be overridden via dart-define or environment

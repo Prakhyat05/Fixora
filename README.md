@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <a href="https://prakhyat05.github.io/rapsapp/">
+  <a href="https://prakhyat05.github.io/Fixora/">
     <img src="https://img.shields.io/badge/🌐%20Live%20Demo-Try%20Interactive%20Mobile%20UI-00A896?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live Demo" height="38" />
   </a>
 </p>
@@ -27,7 +27,7 @@
 > ### 📱 **Live Interactive Mobile Demo**
 > Recruiters and reviewers can test the fully interactive application directly in their web browser:
 >
-> 👉 **[Launch Fixora Mobile Preview](https://prakhyat05.github.io/rapsapp/)**
+> 👉 **[Launch Fixora Mobile Preview](https://prakhyat05.github.io/Fixora/)**
 >
 > - **Authentic Mobile Viewport**: Automatically rendered in a centered mobile device shell on desktop screens, or full-screen on mobile devices.
 > - **Recruiter One-Click Bypass**: Tap **"Quick Demo Login (For Recruiters)"** on the sign-in screen to jump directly into the active dashboard with simulated real-time data.
@@ -70,10 +70,10 @@ Pre-compiled production APKs are published on GitHub Releases, split per ABI for
 
 | Target Architecture | Size | Recommended Devices | Direct Download | Dedicated GitHub Release |
 |:---|:---:|:---|:---:|:---:|
-| **ARM64-v8a** (64-bit) | **23.9 MB** | Modern Android phones (Snapdragon 8/7/6 Gen, Tensor, Dimensity, Exynos) | [⬇️ Download ARM64 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/Fixora-v1.0.0-arm64-v8a.apk) | [🏷️ `v1.0.0-arm64`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0-arm64) |
-| **ARMeabi-v7a** (32-bit) | **21.5 MB** | Budget, entry-level, and legacy 32-bit Android devices | [⬇️ Download ARMv7 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/Fixora-armeabi-v7a.apk) | [🏷️ `v1.0.0-armv7`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0-armv7) |
-| **x86_64** (64-bit PC) | **25.0 MB** | Android Studio Emulators, Chromebooks, WSA | [⬇️ Download x86_64 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/Fixora-x86_64.apk) | [🏷️ `v1.0.0`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0) |
-| **Universal (Fat APK)** | **54.5 MB** | Universal fallback containing all CPU architectures | [⬇️ Download Universal APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/Fixora-universal.apk) | [🏷️ `v1.0.0 (Latest)`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0) |
+| **ARM64-v8a** (64-bit) | **23.9 MB** | Modern Android phones (Snapdragon 8/7/6 Gen, Tensor, Dimensity, Exynos) | [⬇️ Download ARM64 APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.0/Fixora-v1.0.0-arm64-v8a.apk) | [🏷️ `v1.0.0-arm64`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.0-arm64) |
+| **ARMeabi-v7a** (32-bit) | **21.5 MB** | Budget, entry-level, and legacy 32-bit Android devices | [⬇️ Download ARMv7 APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.0/Fixora-armeabi-v7a.apk) | [🏷️ `v1.0.0-armv7`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.0-armv7) |
+| **x86_64** (64-bit PC) | **25.0 MB** | Android Studio Emulators, Chromebooks, WSA | [⬇️ Download x86_64 APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.0/Fixora-x86_64.apk) | [🏷️ `v1.0.0`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.0) |
+| **Universal (Fat APK)** | **54.5 MB** | Universal fallback containing all CPU architectures | [⬇️ Download Universal APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.0/Fixora-universal.apk) | [🏷️ `v1.0.0 (Latest)`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.0) |
 
 > 💡 **Why ABI Splits?** By distributing dedicated ARM builds (`arm64-v8a` and `armeabi-v7a`), end users download over **56% smaller binaries** (21–23 MB vs 54.5 MB), drastically speeding up download speeds and conserving mobile data.
 
@@ -294,8 +294,8 @@ Fixora/
 
 ### 1. Clone & Install Dependencies
 ```bash
-git clone https://github.com/Prakhyat05/rapsapp.git
-cd rapsapp
+git clone https://github.com/Prakhyat05/Fixora.git
+cd Fixora
 flutter pub get
 ```
 
