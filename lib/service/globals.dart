@@ -18,6 +18,6 @@ class Globals {
   /// Default demo user details for quick recruiter testing
   static const String demoEmail = "provider@fixora.com";
   static const String demoPassword = "Password@123";
-  static const String demoName = "Sandeep Kumar";
+  static const String demoName = "Prakhyat Prakhar";
   static const String demoPhone = "9876543210";
 }

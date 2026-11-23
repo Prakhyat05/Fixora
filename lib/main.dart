@@ -5,6 +5,8 @@ import "package:service/screen/Auth/verification/otp_mobile.dart";
 import "package:service/screen/ComingSoon.dart";
 import "package:service/screen/Dashboard1/app_language.dart";
 import "package:service/screen/Dashboard1/empty_state.dart";
+import "package:service/screen/Dashboard1/rewards.dart";
+import "package:service/screen/Dashboard1/faqs.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
 import "export.dart";
@@ -84,6 +86,8 @@ class _MyAppState extends State<MyApp> {
         'serviceOTPVerification': (context) => ServiceOtpVerification(),
         'startingService': (context) => StartingAnimation(),
         'appLanguage': (context) => AppLanguage(),
+        'rewards': (context) => const RewardsPage(),
+        'faqs': (context) => const FaqPage(),
         'comingsoon': (context) => Comingsoon(),
         'emptystate': (context) => ProviderDashboard(),
         'otpmobile': (context) => OtpMobile(),

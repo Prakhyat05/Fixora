@@ -32,11 +32,16 @@ class _ViewAppointmentsState extends State<ViewAppointments> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height < 750 ? 30 : 30,
                 ),
-                MyAppBarBackButton(),
-                MySecondHeading(
-                  text: 'Jobs',
-                  fontWeight: FontWeight.bold,
-                  fontsize: MediaQuery.of(context).size.width < 400 ? 24 : 26,
+                Row(
+                  children: [
+                    MyAppBarBackButton(),
+                    SizedBox(width: 20),
+                    MySecondHeading(
+                      text: 'Appointments & Jobs',
+                      fontWeight: FontWeight.bold,
+                      fontsize: MediaQuery.of(context).size.width < 400 ? 20 : 22,
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.width < 400 ? 10 : 9,

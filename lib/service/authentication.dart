@@ -391,9 +391,12 @@ class AuthServices {
     return null;
   }
 
-  Future<dynamic> setProfilePhoto(File? pic) async {
-    if (pic == null || !await pic.exists()) return null;
+  Future<dynamic> setProfilePhoto(dynamic pic) async {
+    if (pic == null) return null;
     try {
+      if (pic is File && !await pic.exists()) return null;
+      final bytes = pic is File ? await pic.readAsBytes() : null;
+      if (bytes == null) return null;
       return await http
           .post(
             Uri.parse("${Globals.backendURL}/profile/photo"),
@@ -401,7 +404,7 @@ class AuthServices {
               if (authToken != null)
                 "Cookie": Cookie("auth-token", authToken!).toString(),
             },
-            body: await pic.readAsBytes(),
+            body: bytes,
           )
           .timeout(const Duration(seconds: 5));
     } catch (_) {
@@ -473,7 +476,7 @@ class AuthServices {
     return [];
   }
 
-  Future<dynamic> getProfilePhoto(File pic) async {
+  Future<dynamic> getProfilePhoto(dynamic pic) async {
     try {
       final resp = await http
           .get(

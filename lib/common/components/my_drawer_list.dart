@@ -53,7 +53,7 @@ class _MyDrawerListState extends State<MyDrawerList> {
             MyDrawerDivider(),
             MyDrawerListTile(
               onPressed: () {
-                Navigator.pushNamed(context, 'comingsoon');
+                Navigator.pushNamed(context, 'rewards');
               },
               myicons: Icons.military_tech_outlined,
               title: 'Rewards',
@@ -61,7 +61,7 @@ class _MyDrawerListState extends State<MyDrawerList> {
             MyDrawerDivider(),
             MyDrawerListTile(
               onPressed: () {
-                Navigator.pushNamed(context, 'comingsoon');
+                Navigator.pushNamed(context, 'faqs');
               },
               myicons: Icons.help_outline,
               title: 'FAQ’S',

@@ -54,7 +54,9 @@ class _ReviewsState extends State<Reviews> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 20),
-                    height: 800,
+                    constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height - 100,
+                    ),
                     padding: EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical:
@@ -162,7 +164,7 @@ class _ReviewsState extends State<Reviews> {
                                             Row(
                                               children: [
                                                 MySecondHeading(
-                                                  text: 'Reviewer Name',
+                                                  text: 'Rohan Verma',
                                                   fontWeight:
                                                       MediaQuery.of(context)
                                                                   .size
@@ -221,7 +223,7 @@ class _ReviewsState extends State<Reviews> {
                                     ),
                                     MyDescTextWidget(
                                       text:
-                                          'Is simply dummy text of the printing and typesetting  Is simply dummy text of the printing and typesetting',
+                                          'Prakhyat was punctual, diagnosed the circuit fault in under 15 minutes, and solved the tripping issue professionally. Highly recommended!',
                                       fontSize:
                                           MediaQuery.of(context).size.width <
                                                   400

@@ -33,7 +33,7 @@ class ProviderDashboard extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.notifications, color: Colors.black),
                   onPressed: () {
-                    Navigator.pushNamed(context, 'comingsoon');
+                    Navigator.pushNamed(context, 'notificationPage');
                   },
                 ),
               ],
@@ -160,8 +160,9 @@ class ProviderDashboard extends StatelessWidget {
 class SectionTitle extends StatelessWidget {
   final String title;
   final String action;
+  final VoidCallback? onTap;
 
-  const SectionTitle({required this.title, required this.action});
+  const SectionTitle({super.key, required this.title, required this.action, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -176,9 +177,16 @@ class SectionTitle extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {
-            Navigator.pushNamed(context, 'comingsoon');
-          },
+          onPressed: onTap ??
+              () {
+                if (title.toLowerCase().contains("review")) {
+                  Navigator.pushNamed(context, 'reviews');
+                } else if (title.toLowerCase().contains("earning")) {
+                  Navigator.pushNamed(context, 'earning');
+                } else {
+                  Navigator.pushNamed(context, 'dashboard');
+                }
+              },
           child: Text(action),
         ),
       ],

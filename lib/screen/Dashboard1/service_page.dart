@@ -53,7 +53,9 @@ class _ServicePageState extends State<ServicePage> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 20),
-                    height: 800,
+                    constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height - 120,
+                    ),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
@@ -82,8 +84,8 @@ class _ServicePageState extends State<ServicePage> {
                                   price: '₹400',
                                   service: 'Primary',
                                   serviceType: 'Electrician',
-                                  serviceDesc: 'Electrical',
-                                  place: 'y',
+                                  serviceDesc: 'Electrical Diagnostic & Repairs',
+                                  place: 'Patiala',
                                   duration: '2 hrs',
                                   distance: '0.2Km',
                                   active: true,
@@ -92,14 +94,14 @@ class _ServicePageState extends State<ServicePage> {
                                   height: 25,
                                 ),
                                 Services(
-                                  price: '₹400',
+                                  price: '₹350',
                                   service: 'Secondary',
-                                  serviceType: 'Electrician',
-                                  serviceDesc: 'Electrical',
-                                  place: 'y',
-                                  duration: '2 hrs',
+                                  serviceType: 'Plumber',
+                                  serviceDesc: 'Pipe Fitting & Leak Repair',
+                                  place: 'Patiala',
+                                  duration: '1.5 hrs',
                                   distance: '0.2Km',
-                                  active: false,
+                                  active: true,
                                 ),
                               ],
                             ),

@@ -260,11 +260,11 @@ class _DashboardState extends State<Dashboard> {
                                   : 210,
                           child: serviceRequest
                               ? MyServiceRequest(
-                                  date: 'Date',
-                                  time: 'Time',
+                                  date: '12/06/2024',
+                                  time: '09:00 AM',
                                   customerName: 'Prakhyat Prakhar',
-                                  serviceType: "Service",
-                                  place: 'place',
+                                  serviceType: 'Electrician',
+                                  place: 'Patiala, Urban Estate',
                                   duration: '2 Hours',
                                   distance: '0.2 Km',
                                   price: '700',
@@ -272,7 +272,16 @@ class _DashboardState extends State<Dashboard> {
                                     Navigator.pushNamed(
                                         context, 'serviceOTPVerification');
                                   },
-                                  leftButtonOnTap: () {},
+                                  leftButtonOnTap: () {
+                                    setState(() {
+                                      serviceRequest = false;
+                                    });
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Instant service request declined'),
+                                      ),
+                                    );
+                                  },
                                 )
                               : Container(
                                   decoration: BoxDecoration(

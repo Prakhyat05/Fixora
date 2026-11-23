@@ -35,7 +35,7 @@ class _ServicesState extends State<Services> {
       child: ConstrainedBox(
         constraints: BoxConstraints(
           maxWidth: 400,
-          maxHeight: 224, // Set a maximum width for the card
+          minHeight: 200,
         ),
         child: Card(
           color: Colors.white,
@@ -142,7 +142,7 @@ class _ServicesState extends State<Services> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               MyDescTextWidget(
-                                text: 'Avgerage Duration',
+                                text: 'Average Duration',
                                 fontSize: 12,
                               ),
                               MySecondHeading(

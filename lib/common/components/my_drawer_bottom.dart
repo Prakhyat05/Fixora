@@ -20,41 +20,44 @@ class _MyDrawerBottomState extends State<MyDrawerBottom> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            IconButton(
-              onPressed: () {},
-              icon: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      await AuthServices().logout();
-                      if (context.mounted) {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          'loginemail',
-                          (route) => false,
-                        );
-                      }
-                    },
-                    child: MySecondHeading(
+            InkWell(
+              onTap: () async {
+                await AuthServices().logout();
+                if (context.mounted) {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    'loginemail',
+                    (route) => false,
+                  );
+                }
+              },
+              borderRadius: BorderRadius.circular(12),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    MySecondHeading(
                       text: 'Logout',
                       fontWeight: FontWeight.w500,
                       fontsize: 18,
                     ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    Icons.logout,
-                    color: Colors.black54,
-                  ),
-                ],
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const Icon(
+                      Icons.logout,
+                      color: Colors.black54,
+                    ),
+                  ],
+                ),
               ),
             ),
+            const SizedBox(height: 6),
             MyTextWidget(
-              text: 'Version 0.1 (Alpha Testing)',
+              text: 'Fixora v1.0.0 (Production)',
               fontSize: 12,
               align: TextAlign.center,
             ),
