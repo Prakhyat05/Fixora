@@ -70,10 +70,10 @@ Pre-compiled production APKs are published on GitHub Releases, split per ABI for
 
 | Target Architecture | Size | Recommended Devices | Direct Download | Dedicated GitHub Release |
 |:---|:---:|:---|:---:|:---:|
-| **ARM64-v8a** (64-bit) | **24.2 MB** | Modern Android phones (Snapdragon 8/7/6 Gen, Tensor, Dimensity, Exynos) | [⬇️ Download ARM64 APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.1/Fixora-v1.0.1-arm64-v8a.apk) | [🏷️ `v1.0.1-arm64`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.1-arm64) |
-| **ARMeabi-v7a** (32-bit) | **21.8 MB** | Budget, entry-level, and legacy 32-bit Android devices | [⬇️ Download ARMv7 APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.1/Fixora-v1.0.1-armeabi-v7a.apk) | [🏷️ `v1.0.1-armv7`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.1-armv7) |
-| **x86_64** (64-bit PC) | **25.3 MB** | Android Studio Emulators, Chromebooks, WSA | [⬇️ Download x86_64 APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.1/Fixora-v1.0.1-x86_64.apk) | [🏷️ `v1.0.1`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.1) |
-| **Universal (Fat APK)** | **55.2 MB** | Universal fallback containing all CPU architectures | [⬇️ Download Universal APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.1/Fixora-v1.0.1-universal.apk) | [🏷️ `v1.0.1 (Latest)`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.1) |
+| **ARM64-v8a** (64-bit) | **24.2 MB** | Modern Android phones (Snapdragon 8/7/6 Gen, Tensor, Dimensity, Exynos) | [⬇️ Download ARM64 APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.2/Fixora-v1.0.2-arm64-v8a.apk) | [🏷️ `v1.0.2-arm64`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.2-arm64) |
+| **ARMeabi-v7a** (32-bit) | **21.8 MB** | Budget, entry-level, and legacy 32-bit Android devices | [⬇️ Download ARMv7 APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.2/Fixora-v1.0.2-armeabi-v7a.apk) | [🏷️ `v1.0.2-armv7`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.2-armv7) |
+| **x86_64** (64-bit PC) | **25.3 MB** | Android Studio Emulators, Chromebooks, WSA | [⬇️ Download x86_64 APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.2/Fixora-v1.0.2-x86_64.apk) | [🏷️ `v1.0.2`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.2) |
+| **Universal (Fat APK)** | **55.2 MB** | Universal fallback containing all CPU architectures | [⬇️ Download Universal APK](https://github.com/Prakhyat05/Fixora/releases/download/v1.0.2/Fixora-v1.0.2-universal.apk) | [🏷️ `v1.0.2 (Latest)`](https://github.com/Prakhyat05/Fixora/releases/tag/v1.0.2) |
 
 > 💡 **Why ABI Splits?** By distributing dedicated ARM builds (`arm64-v8a` and `armeabi-v7a`), end users download over **56% smaller binaries** (21–23 MB vs 54.5 MB), drastically speeding up download speeds and conserving mobile data.
 

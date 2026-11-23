@@ -29,6 +29,14 @@ class Services extends StatefulWidget {
 }
 
 class _ServicesState extends State<Services> {
+  late int _currentRate;
+
+  @override
+  void initState() {
+    super.initState();
+    final digits = RegExp(r'\d+').firstMatch(widget.price)?.group(0);
+    _currentRate = int.tryParse(digits ?? "400") ?? 400;
+  }
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -130,10 +138,46 @@ class _ServicesState extends State<Services> {
                                 text: 'Price/hr',
                                 fontSize: 12,
                               ),
-                              MySecondHeading(
-                                text: widget.price,
-                                fontWeight: FontWeight.w500,
-                                fontsize: 15,
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        if (_currentRate > 100) _currentRate -= 50;
+                                      });
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          duration: const Duration(seconds: 1),
+                                          content: Text("${widget.serviceType} rate updated: ₹$_currentRate/hr"),
+                                        ),
+                                      );
+                                    },
+                                    borderRadius: BorderRadius.circular(4),
+                                    child: const Icon(Icons.remove_circle_outline, size: 18, color: Color(0xFF00A896)),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  MySecondHeading(
+                                    text: '₹$_currentRate',
+                                    fontWeight: FontWeight.w600,
+                                    fontsize: 15,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        _currentRate += 50;
+                                      });
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          duration: const Duration(seconds: 1),
+                                          content: Text("${widget.serviceType} rate updated: ₹$_currentRate/hr"),
+                                        ),
+                                      );
+                                    },
+                                    borderRadius: BorderRadius.circular(4),
+                                    child: const Icon(Icons.add_circle_outline, size: 18, color: Color(0xFF00A896)),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

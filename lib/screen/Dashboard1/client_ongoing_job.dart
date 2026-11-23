@@ -97,7 +97,7 @@ class _ClientOnGoingJobState extends State<ClientOnGoingJob>
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 20),
-                    height: 800,
+                    constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height - 100),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                     decoration: BoxDecoration(
                       boxShadow: [
@@ -125,7 +125,7 @@ class _ClientOnGoingJobState extends State<ClientOnGoingJob>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     MySecondHeading(
-                                      text: 'Client\'s name',
+                                      text: 'Prakhyat Prakhar',
                                       fontWeight:
                                           MediaQuery.of(context).size.width <
                                                   400
@@ -138,7 +138,7 @@ class _ClientOnGoingJobState extends State<ClientOnGoingJob>
                                               : 18,
                                     ),
                                     MyDescTextWidget(
-                                      text: 'Service Requested',
+                                      text: 'Emergency Electrical Repair',
                                       fontSize:
                                           MediaQuery.of(context).size.width <
                                                   400
@@ -148,7 +148,35 @@ class _ClientOnGoingJobState extends State<ClientOnGoingJob>
                                   ],
                                 ),
                                 MyInkWellButton(
-                                    text: 'Cancel', onPressed: () {})
+                                    text: 'Cancel',
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (ctx) => AlertDialog(
+                                          title: const Text("Cancel Service Request?"),
+                                          content: const Text(
+                                            "Are you sure you want to cancel this booking? Doorstep cancellation compensation will apply.",
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(ctx),
+                                              child: const Text("Keep Job"),
+                                            ),
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.red,
+                                                foregroundColor: Colors.white,
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(ctx);
+                                                Navigator.pushReplacementNamed(context, 'dashboard');
+                                              },
+                                              child: const Text("Yes, Cancel"),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    })
                               ],
                             ),
                             SizedBox(
@@ -165,7 +193,7 @@ class _ClientOnGoingJobState extends State<ClientOnGoingJob>
                                   width: 5,
                                 ),
                                 MySecondHeading(
-                                  text: 'Client Location',
+                                  text: 'Flat 402, Urban Estate, Patiala',
                                   fontWeight: FontWeight.w600,
                                   fontsize:
                                       MediaQuery.of(context).size.width < 400
@@ -213,7 +241,7 @@ class _ClientOnGoingJobState extends State<ClientOnGoingJob>
                                               : 16,
                                     ),
                                     MySecondHeading(
-                                      text: '₹70/-',
+                                      text: '₹750/-',
                                       fontsize:
                                           MediaQuery.of(context).size.width <
                                                   400
@@ -344,7 +372,14 @@ class _ClientOnGoingJobState extends State<ClientOnGoingJob>
                         ),
                         MyTextButton(
                           text: 'Add 10 mins',
-                          onPressed: () {},
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                backgroundColor: Color(0xFF00A896),
+                                content: Text("Added 10 minutes to job window. Customer notified via SMS."),
+                              ),
+                            );
+                          },
                           textColor: Color.fromARGB(255, 131, 145, 161),
                           buttonColor: Color.fromARGB(40, 120, 119, 119),
                         ),

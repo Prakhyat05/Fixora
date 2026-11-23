@@ -10,6 +10,162 @@ class Earning extends StatefulWidget {
 }
 
 class _EarningState extends State<Earning> {
+  double _withdrawableBalance = 7000.0;
+
+  void _showWithdrawalSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        bool isProcessing = false;
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Container(
+              padding: const EdgeInsets.all(24),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Instant UPI Payout",
+                        style: GoogleFonts.montserrat(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.pop(ctx),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF1F5F9),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.account_balance, color: Color(0xFF00A896), size: 28),
+                        const SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "State Bank of India (SBI)",
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                              ),
+                            ),
+                            Text(
+                              "A/C: ****1234 • IFSC: SBIN0001234",
+                              style: GoogleFonts.montserrat(
+                                color: Colors.grey.shade600,
+                                fontSize: 11,
+                              ),
+                            ),
+                            Text(
+                              "UPI ID: prakhyat@oksbi",
+                              style: GoogleFonts.montserrat(
+                                color: const Color(0xFF00A896),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Withdrawable Revenue:",
+                        style: GoogleFonts.montserrat(fontSize: 13, color: Colors.black54),
+                      ),
+                      Text(
+                        _withdrawableBalance > 0
+                            ? "₹${_withdrawableBalance.toStringAsFixed(2)}"
+                            : "₹0.00",
+                        style: GoogleFonts.montserrat(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF00A896),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF00A896),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      onPressed: isProcessing || _withdrawableBalance <= 0
+                          ? null
+                          : () async {
+                              final navigator = Navigator.of(ctx);
+                              final messenger = ScaffoldMessenger.of(context);
+                              setModalState(() {
+                                isProcessing = true;
+                              });
+                              await Future.delayed(const Duration(milliseconds: 1400));
+                              if (!mounted) return;
+                              setState(() {
+                                _withdrawableBalance = 0.0;
+                              });
+                              navigator.pop();
+                              messenger.showSnackBar(
+                                SnackBar(
+                                  backgroundColor: const Color(0xFF00A896),
+                                  content: Text(
+                                    "₹7,000.00 transferred successfully to prakhyat@oksbi! UTR: 482910395",
+                                    style: GoogleFonts.montserrat(fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                              );
+                            },
+                      child: isProcessing
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                            )
+                          : Text(
+                              _withdrawableBalance > 0
+                                  ? "Transfer ₹${_withdrawableBalance.toStringAsFixed(0)} to UPI Now"
+                                  : "Funds Transferred",
+                              style: GoogleFonts.montserrat(fontWeight: FontWeight.bold),
+                            ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -230,7 +386,35 @@ class _EarningState extends State<Earning> {
                           ),
                         ),
 
-                        SizedBox(height: 40),
+                        const SizedBox(height: 24),
+                        // Instant Payout Action Button
+                        Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          child: ElevatedButton.icon(
+                            icon: const Icon(Icons.flash_on, color: Colors.amberAccent, size: 20),
+                            label: Text(
+                              _withdrawableBalance > 0
+                                  ? "Instant UPI Withdrawal (₹${_withdrawableBalance.toStringAsFixed(0)})"
+                                  : "Balance Settled (₹0.00)",
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF00A896),
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              elevation: 2,
+                            ),
+                            onPressed: _showWithdrawalSheet,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
                         // Options
                         Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -239,7 +423,7 @@ class _EarningState extends State<Earning> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               MyTextWidget(
-                                text: 'Transcation History',
+                                text: 'Transaction History',
                                 align: TextAlign.start,
                                 color: Colors.black,
                                 fontSize:
@@ -249,7 +433,7 @@ class _EarningState extends State<Earning> {
                               ),
                               Divider(),
                               MyTextWidget(
-                                text: 'Clinet\'s Name',
+                                text: 'Prakhyat Prakhar (Diagnostic & Repair)',
                                 align: TextAlign.start,
                                 color: Colors.black,
                                 fontSize:
@@ -269,12 +453,12 @@ class _EarningState extends State<Earning> {
                                             ? 12
                                             : 15,
                                   ),
-                                  MySecondHeading(text: '₹90.00')
+                                  MySecondHeading(text: '₹750.00')
                                 ],
                               ),
                               Divider(),
                               MyTextWidget(
-                                text: 'Clinet\'s Name',
+                                text: 'Prakhyat Prakhar (Diagnostic & Repair)',
                                 align: TextAlign.start,
                                 color: Colors.black,
                                 fontSize:
@@ -294,7 +478,7 @@ class _EarningState extends State<Earning> {
                                             ? 12
                                             : 15,
                                   ),
-                                  MySecondHeading(text: '₹90.00')
+                                  MySecondHeading(text: '₹750.00')
                                 ],
                               ),
                               Divider(),
