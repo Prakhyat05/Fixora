@@ -34,7 +34,7 @@ class _PaymentState extends State<Payment> {
       final options = {
         'key': Globals.razorpayKey,
         'amount': 100 * 70, // Rs. 70
-        'name': 'RAPSAPP',
+        'name': 'FIXORA',
         'description': 'Service Booking Fee',
         'method': {
           'netbanking': false,

@@ -45,7 +45,7 @@ class SplashScreenTwo extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  "RAPSAPP",
+                  "FIXORA",
                   style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w700,
                     textStyle: const TextStyle(

@@ -1,6 +1,6 @@
 {
-    "name": "service",
-    "short_name": "service",
+    "name": "Fixora",
+    "short_name": "Fixora",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

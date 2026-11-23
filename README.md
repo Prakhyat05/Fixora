@@ -1,7 +1,7 @@
-# 🛠️ RapsApp — Hyperlocal On-Demand Service & Handyman Marketplace
+# 🛠️ Fixora — Hyperlocal On-Demand Service & Handyman Marketplace
 
 <p align="center">
-  <img src="assets/app_Icon.jpg" alt="RapsApp Logo" width="120" style="border-radius: 20%;" />
+  <img src="assets/app_Icon.jpg" alt="Fixora Logo" width="120" style="border-radius: 20%;" />
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@
 > ### 📱 **Live Interactive Mobile Demo**
 > Recruiters and reviewers can test the fully interactive application directly in their web browser:
 >
-> 👉 **[Launch RapsApp Mobile Preview](https://prakhyat05.github.io/rapsapp/)**
+> 👉 **[Launch Fixora Mobile Preview](https://prakhyat05.github.io/rapsapp/)**
 >
 > - **Authentic Mobile Viewport**: Automatically rendered in a centered mobile device shell on desktop screens, or full-screen on mobile devices.
 > - **Recruiter One-Click Bypass**: Tap **"Quick Demo Login (For Recruiters)"** on the sign-in screen to jump directly into the active dashboard with simulated real-time data.
@@ -55,7 +55,7 @@
 
 ## 🌟 Executive Summary
 
-**RapsApp** is a production-ready hyperlocal service marketplace application tailored for the gig economy. It solves the fragmentation and safety friction in urban home maintenance by equipping service professionals (electricians, plumbers, mechanics, painters, carpenters) with an end-to-end digital business toolkit:
+**Fixora** is a production-ready hyperlocal service marketplace application tailored for the gig economy. It solves the fragmentation and safety friction in urban home maintenance by equipping service professionals (electricians, plumbers, mechanics, painters, carpenters) with an end-to-end digital business toolkit:
 
 - **Strict Identity & Banking KYC**: 5-tier onboarding covering personal address, Aadhaar verification, bank IFSC details, and customizable hourly service rates.
 - **Mutual Security Handshake**: Cryptographic OTP verification before a provider commences work and upon completion, preventing fraud and dispute.
@@ -70,10 +70,10 @@ Pre-compiled production APKs are published on GitHub Releases, split per ABI for
 
 | Target Architecture | Size | Recommended Devices | Direct Download | Dedicated GitHub Release |
 |:---|:---:|:---|:---:|:---:|
-| **ARM64-v8a** (64-bit) | **23.9 MB** | Modern Android phones (Snapdragon 8/7/6 Gen, Tensor, Dimensity, Exynos) | [⬇️ Download ARM64 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/RapsApp-v1.0.0-arm64-v8a.apk) | [🏷️ `v1.0.0-arm64`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0-arm64) |
-| **ARMeabi-v7a** (32-bit) | **21.5 MB** | Budget, entry-level, and legacy 32-bit Android devices | [⬇️ Download ARMv7 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/RapsApp-v1.0.0-armeabi-v7a.apk) | [🏷️ `v1.0.0-armv7`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0-armv7) |
-| **x86_64** (64-bit PC) | **25.0 MB** | Android Studio Emulators, Chromebooks, WSA | [⬇️ Download x86_64 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/RapsApp-v1.0.0-x86_64.apk) | [🏷️ `v1.0.0`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0) |
-| **Universal (Fat APK)** | **54.5 MB** | Universal fallback containing all CPU architectures | [⬇️ Download Universal APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/RapsApp-v1.0.0-universal.apk) | [🏷️ `v1.0.0 (Latest)`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0) |
+| **ARM64-v8a** (64-bit) | **23.9 MB** | Modern Android phones (Snapdragon 8/7/6 Gen, Tensor, Dimensity, Exynos) | [⬇️ Download ARM64 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/Fixora-v1.0.0-arm64-v8a.apk) | [🏷️ `v1.0.0-arm64`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0-arm64) |
+| **ARMeabi-v7a** (32-bit) | **21.5 MB** | Budget, entry-level, and legacy 32-bit Android devices | [⬇️ Download ARMv7 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/Fixora-armeabi-v7a.apk) | [🏷️ `v1.0.0-armv7`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0-armv7) |
+| **x86_64** (64-bit PC) | **25.0 MB** | Android Studio Emulators, Chromebooks, WSA | [⬇️ Download x86_64 APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/Fixora-x86_64.apk) | [🏷️ `v1.0.0`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0) |
+| **Universal (Fat APK)** | **54.5 MB** | Universal fallback containing all CPU architectures | [⬇️ Download Universal APK](https://github.com/Prakhyat05/rapsapp/releases/download/v1.0.0/Fixora-universal.apk) | [🏷️ `v1.0.0 (Latest)`](https://github.com/Prakhyat05/rapsapp/releases/tag/v1.0.0) |
 
 > 💡 **Why ABI Splits?** By distributing dedicated ARM builds (`arm64-v8a` and `armeabi-v7a`), end users download over **56% smaller binaries** (21–23 MB vs 54.5 MB), drastically speeding up download speeds and conserving mobile data.
 
@@ -139,7 +139,7 @@ The platform mandates a rigorous 5-step onboarding journey before activating pro
 sequenceDiagram
     autonumber
     actor Provider as Service Provider
-    participant App as RapsApp Mobile
+    participant App as Fixora Mobile
     participant Auth as AuthServices
     participant Backend as REST API / Cache
 
@@ -173,7 +173,7 @@ sequenceDiagram
 
 ### 2. Service Job Lifecycle & Dual-OTP Handshake
 
-To eliminate billing disputes and ensure contractor safety, RapsApp implements a dual-stage OTP verification protocol:
+To eliminate billing disputes and ensure contractor safety, Fixora implements a dual-stage OTP verification protocol:
 
 ```mermaid
 stateDiagram-v2
@@ -251,7 +251,7 @@ flowchart LR
 ## 📂 Directory Structure
 
 ```text
-RapsApp/
+Fixora/
 ├── android/                 # Android native Gradle configuration & manifest
 ├── ios/                     # iOS Xcode workspace & Runner configuration
 ├── assets/                  # App branding, SVG/PNG illustrations & icons
@@ -315,12 +315,12 @@ flutter run -d windows
 
 ### 3. Demo Credentials for Recruiters
 On the Login screen, click the **"Quick Demo Login (For Recruiters)"** button to autofill and log in instantly, or enter:
-- **Email**: `provider@rapsapp.com`
+- **Email**: `provider@fixora.com`
 - **Password**: `Password@123`
 - **OTP Code**: Any 6 digits (e.g. `123456`)
 
 ### 4. Running with Production Cloud Backend
-To connect RapsApp to your custom production backend or payment gateway keys:
+To connect Fixora to your custom production backend or payment gateway keys:
 ```bash
 flutter run \
   --dart-define=BACKEND_URL=https://your-api-domain.com \
@@ -331,7 +331,7 @@ flutter run \
 
 ## 🧪 Testing & Quality Assurance
 
-RapsApp includes a robust unit and widget testing suite:
+Fixora includes a robust unit and widget testing suite:
 
 ```bash
 # Execute the full test suite
@@ -344,7 +344,7 @@ flutter analyze
 ### Verification Results:
 ```text
 00:03 +10: All tests passed!
-Analyzing RapsApp... No issues found!
+Analyzing Fixora... No issues found!
 ```
 
 ---

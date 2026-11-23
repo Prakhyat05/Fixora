@@ -1,6 +1,6 @@
 // constant strings
 String nextText = "Next",
-    appName = "RAPSAPP",
+    appName = "FIXORA",
     gettingStarted = "Get Started!",
     enterYourName = 'Enter your name',
     enterYourEmail = 'Enter your email',

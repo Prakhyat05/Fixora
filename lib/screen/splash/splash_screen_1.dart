@@ -51,7 +51,7 @@ class _SplashScreenOneState extends State<SplashScreenOne> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "RAPSAPP",
+                "FIXORA",
                 style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.w700,
                   textStyle: const TextStyle(

@@ -3,7 +3,7 @@ import 'package:service/screen/onboarding_screen/onboarding_info.dart';
 class OnboardingItems {
   List<OnboardingInfo> items = [
     OnboardingInfo(
-      title: "Welcome to\n RAPSAPP",
+      title: "Welcome to\n FIXORA",
       descriptions:
           "Discover endless opportunities by connecting with clients who need your skills.",
       image: "assets/images/plumber/plumber.png",

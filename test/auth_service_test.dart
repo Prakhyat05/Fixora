@@ -37,7 +37,7 @@ void main() {
     test('Demo signup succeeds and saves user credentials', () async {
       final auth = AuthServices();
       final result = await auth.signUPUser(
-        email: 'testprovider@rapsapp.com',
+        email: 'testprovider@fixora.com',
         password: 'Password@123',
         name: 'Test Provider',
         phone: '9988776655',
@@ -45,16 +45,16 @@ void main() {
 
       expect(result, equals('success'));
       expect(auth.isSignedIn(), isTrue);
-      expect(AuthServices.currentEmail, equals('testprovider@rapsapp.com'));
+      expect(AuthServices.currentEmail, equals('testprovider@fixora.com'));
       expect(AuthServices.currentName, equals('Test Provider'));
     });
 
     test('OTP request and verification in demo mode', () async {
       final auth = AuthServices();
-      final requestSuccess = await auth.requestOTP('test@rapsapp.com');
+      final requestSuccess = await auth.requestOTP('test@fixora.com');
       expect(requestSuccess, isTrue);
 
-      final verifySuccess = await auth.checkOTP('test@rapsapp.com', '123456');
+      final verifySuccess = await auth.checkOTP('test@fixora.com', '123456');
       expect(verifySuccess, isTrue);
     });
 

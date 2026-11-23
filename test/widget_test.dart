@@ -11,7 +11,7 @@ void main() {
     Globals.demoMode = true;
   });
 
-  testWidgets('SplashScreen renders RAPSAPP branding title',
+  testWidgets('SplashScreen renders FIXORA branding title',
       (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
@@ -23,7 +23,7 @@ void main() {
       ),
     );
 
-    expect(find.text('RAPSAPP'), findsOneWidget);
+    expect(find.text('FIXORA'), findsOneWidget);
     expect(find.text('Hyperlocal Service Marketplace'), findsOneWidget);
 
     await tester.pump(const Duration(seconds: 3));

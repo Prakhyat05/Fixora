@@ -35,7 +35,7 @@ class _ActivateAccount1State extends State<ActivateAccount1> {
       final options = {
         'key': Globals.razorpayKey,
         'amount': 100 * 39, // Rs. 39 nominal activation fee
-        'name': 'RAPSAPP',
+        'name': 'FIXORA',
         'description': 'Provider Account Activation',
         'method': {
           'netbanking': false,
