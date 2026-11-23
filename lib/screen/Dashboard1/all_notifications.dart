@@ -27,7 +27,8 @@ class _AllNotificationsState extends State<AllNotifications> {
                 },
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -48,20 +49,24 @@ class _AllNotificationsState extends State<AllNotifications> {
                             children: [
                               MySecondHeading(
                                 text: 'Prakhyat Prakhar (Client)',
-                                fontWeight: MediaQuery.of(context).size.width < 400
-                                    ? fontWeight400
-                                    : fontWeight500,
-                                fontsize: MediaQuery.of(context).size.width < 400
-                                    ? 15
-                                    : 16,
+                                fontWeight:
+                                    MediaQuery.of(context).size.width < 400
+                                        ? fontWeight400
+                                        : fontWeight500,
+                                fontsize:
+                                    MediaQuery.of(context).size.width < 400
+                                        ? 15
+                                        : 16,
                               ),
                               const SizedBox(height: 2),
                               MyTextWidget(
-                                text: 'Sent you a new message regarding Flat 402',
+                                text:
+                                    'Sent you a new message regarding Flat 402',
                                 fontWeight: fontWeight400,
-                                fontSize: MediaQuery.of(context).size.width < 400
-                                    ? 11
-                                    : 12,
+                                fontSize:
+                                    MediaQuery.of(context).size.width < 400
+                                        ? 11
+                                        : 12,
                               ),
                               const SizedBox(height: 2),
                               MyTextWidget(
@@ -94,7 +99,8 @@ class _AllNotificationsState extends State<AllNotifications> {
                 },
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -107,7 +113,8 @@ class _AllNotificationsState extends State<AllNotifications> {
                               color: Colors.amber.withOpacity(0.15),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.military_tech, color: Colors.amber, size: 28),
+                            child: const Icon(Icons.military_tech,
+                                color: Colors.amber, size: 28),
                           ),
                           const SizedBox(width: 12),
                           Column(
@@ -115,20 +122,24 @@ class _AllNotificationsState extends State<AllNotifications> {
                             children: [
                               MySecondHeading(
                                 text: 'Milestone Achieved! 🎉',
-                                fontWeight: MediaQuery.of(context).size.width < 400
-                                    ? fontWeight400
-                                    : fontWeight500,
-                                fontsize: MediaQuery.of(context).size.width < 400
-                                    ? 15
-                                    : 16,
+                                fontWeight:
+                                    MediaQuery.of(context).size.width < 400
+                                        ? fontWeight400
+                                        : fontWeight500,
+                                fontsize:
+                                    MediaQuery.of(context).size.width < 400
+                                        ? 15
+                                        : 16,
                               ),
                               const SizedBox(height: 2),
                               MyTextWidget(
-                                text: 'Completed 150 jobs! Claim your Gold Perks.',
+                                text:
+                                    'Completed 150 jobs! Claim your Gold Perks.',
                                 fontWeight: fontWeight400,
-                                fontSize: MediaQuery.of(context).size.width < 400
-                                    ? 11
-                                    : 12,
+                                fontSize:
+                                    MediaQuery.of(context).size.width < 400
+                                        ? 11
+                                        : 12,
                               ),
                               const SizedBox(height: 2),
                               MyTextWidget(
@@ -161,7 +172,8 @@ class _AllNotificationsState extends State<AllNotifications> {
                 },
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -174,7 +186,8 @@ class _AllNotificationsState extends State<AllNotifications> {
                               color: Colors.green.withOpacity(0.15),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.currency_rupee, color: Colors.green, size: 26),
+                            child: const Icon(Icons.currency_rupee,
+                                color: Colors.green, size: 26),
                           ),
                           const SizedBox(width: 12),
                           Column(
@@ -182,20 +195,24 @@ class _AllNotificationsState extends State<AllNotifications> {
                             children: [
                               MySecondHeading(
                                 text: 'UPI Payout Received 💰',
-                                fontWeight: MediaQuery.of(context).size.width < 400
-                                    ? fontWeight400
-                                    : fontWeight500,
-                                fontsize: MediaQuery.of(context).size.width < 400
-                                    ? 15
-                                    : 16,
+                                fontWeight:
+                                    MediaQuery.of(context).size.width < 400
+                                        ? fontWeight400
+                                        : fontWeight500,
+                                fontsize:
+                                    MediaQuery.of(context).size.width < 400
+                                        ? 15
+                                        : 16,
                               ),
                               const SizedBox(height: 2),
                               MyTextWidget(
-                                text: '₹750 credited instantly to linked bank account.',
+                                text:
+                                    '₹750 credited instantly to linked bank account.',
                                 fontWeight: fontWeight400,
-                                fontSize: MediaQuery.of(context).size.width < 400
-                                    ? 11
-                                    : 12,
+                                fontSize:
+                                    MediaQuery.of(context).size.width < 400
+                                        ? 11
+                                        : 12,
                               ),
                               const SizedBox(height: 2),
                               MyTextWidget(
