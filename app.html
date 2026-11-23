@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/Fixora/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Fixora Live Mobile Application">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Fixora">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Fixora Mobile Engine</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #FFFFFF;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    #app-loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #FFFFFF;
+      z-index: 99999;
+      transition: opacity 0.35s ease-out;
+    }
+    .app-spinner {
+      width: 42px;
+      height: 42px;
+      border: 3.5px solid rgba(0, 168, 150, 0.2);
+      border-top-color: #00A896;
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .app-title {
+      margin-top: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #0F172A;
+    }
+    .app-desc {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #64748B;
+    }
+  </style>
+
+  <script>
+    const serviceWorkerVersion = "3621100278";
+  </script>
+  <script src="flutter.js" defer></script>
+</head>
+<body>
+  <div id="app-loading">
+    <img src="assets/assets/app_Icon.jpg" onerror="this.src='assets/app_Icon.jpg'" alt="Fixora" style="width: 56px; height: 56px; border-radius: 14px; margin-bottom: 14px; object-fit: cover;" />
+    <div class="app-spinner"></div>
+    <div class="app-title">FIXORA</div>
+    <div class="app-desc">Loading mobile experience...</div>
+  </div>
+
+  <script>
+    window.addEventListener('load', function() {
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+            setTimeout(function() {
+              const loader = document.getElementById('app-loading');
+              if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.remove(), 350);
+              }
+            }, 450);
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
