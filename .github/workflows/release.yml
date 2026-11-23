@@ -147,11 +147,12 @@ jobs:
             - Live preview available at: **[https://prakhyat05.github.io/Fixora/](https://prakhyat05.github.io/Fixora/)**
 
             ### ✨ Key Features in this Build
-            - Complete 5-Step KYC Verification Flow
-            - Dual-OTP Mutual Handshake Architecture
-            - In-App Chat, Calling, and Location Navigation
-            - All New Activities & Messages Feed
-            - Partner Rewards & FAQ Center
-            - Zero Linter Warnings & 100% Test Passing
+            - Modern elevated surface UI & emerald teal branding (`#00A896`)
+            - Docked 5-tab Bottom Navigation Bar (Home, Jobs, Wallet, Messages, Profile)
+            - Live Dispatch Radar with real-time countdown timer & sound/visual alerts
+            - Instant UPI Payout modal bottom sheet linked to verified UPI ID (`prakhyat@oksbi`)
+            - Dynamic Hourly Rate Steppers (+/- ₹50) & Operating Schedule Banner
+            - Complete 5-Step KYC Verification Flow & Dual-OTP Handshake
+            - Zero Linter Warnings & 100% Test Pass Rate
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
